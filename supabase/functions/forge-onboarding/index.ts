@@ -40,7 +40,7 @@ serve(async (req: Request) => {
     const prompt = buildOnboardingPrompt(datos);
 
     const message = await anthropic.messages.create({
-      model: 'claude-opus-4-6',
+      model: 'claude-sonnet-4-20250514',
       max_tokens: 8000,
       messages: [{ role: 'user', content: prompt }],
     });

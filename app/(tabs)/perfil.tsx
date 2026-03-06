@@ -44,14 +44,7 @@ export default function PerfilScreen() {
     FASE_4: 'FASE 4 — ÉLITE',
   };
 
-  const progresoPeso =
-    profile.peso_objetivo !== profile.peso_actual
-      ? Math.min(
-          1,
-          Math.abs(profile.peso_actual - profile.peso_actual) /
-            Math.abs(profile.peso_objetivo - profile.peso_actual) || 0,
-        )
-      : 1;
+  const progresoPeso = profile.peso_objetivo === profile.peso_actual ? 1 : 0;
 
   return (
     <ScrollView

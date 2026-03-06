@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { View, Text, ScrollView, Pressable, Alert, Vibration } from 'react-native';
 import { router } from 'expo-router';
 import { useWorkout } from '@/hooks/useWorkout';
+import { useWorkoutStore } from '@/stores/workoutStore';
 import { useTimer } from '@/hooks/useTimer';
 import { ExerciseGif } from '@/components/workout/ExerciseGif';
 import { SerieRow } from '@/components/workout/SerieRow';
@@ -42,7 +43,7 @@ export default function EjercicioActivoModal() {
     return (
       <View className="flex-1 bg-bg">
         <WorkoutSummary
-          ejercicios={[]}
+          ejercicios={seriesCompletadasDelEjercicio.length > 0 ? useWorkoutStore.getState().ejerciciosCompletados : []}
           duracionMin={0}
           onClose={async () => {
             await finalizarWorkout();
