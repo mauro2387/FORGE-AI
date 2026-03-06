@@ -1,0 +1,61 @@
+{
+  "expo": {
+    "name": "FORGE",
+    "slug": "forge-app",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/icon.png",
+    "userInterfaceStyle": "dark",
+    "scheme": "forge",
+    "splash": {
+      "image": "./assets/splash-icon.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#060708"
+    },
+    "ios": {
+      "supportsTablet": false,
+      "bundleIdentifier": "com.forge.app"
+    },
+    "android": {
+      "package": "com.forge.app",
+      "adaptiveIcon": {
+        "backgroundColor": "#060708",
+        "foregroundImage": "./assets/android-icon-foreground.png",
+        "backgroundImage": "./assets/android-icon-background.png",
+        "monochromeImage": "./assets/android-icon-monochrome.png"
+      }
+    },
+    "web": {
+      "favicon": "./assets/favicon.png",
+      "bundler": "metro"
+    },
+    "plugins": [
+      "expo-router",
+      "expo-font",
+      [
+        "expo-camera",
+        {
+          "cameraPermission": "FORGE necesita la cámara para tus fotos de progreso."
+        }
+      ],
+      [
+        "expo-notifications",
+        {
+          "icon": "./assets/icon.png",
+          "color": "#c4a040"
+        }
+      ],
+      [
+        "expo-image-picker",
+        {
+          "photosPermission": "FORGE necesita acceso a tus fotos para el progreso."
+        }
+      ]
+    ],
+    "extra": {
+      "router": {
+        "origin": false
+      }
+    }
+  }
+}

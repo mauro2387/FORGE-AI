@@ -18,18 +18,8 @@ async function callEdgeFunction<T>(
   functionName: string,
   body: Record<string, unknown>,
 ): Promise<T> {
-  const { data: sessionData } = await supabase.auth.getSession();
-  const token = sessionData.session?.access_token;
-
-  if (!token) {
-    throw new Error('No hay sesión activa. Iniciá sesión primero.');
-  }
-
   const { data, error } = await supabase.functions.invoke(functionName, {
     body,
-    headers: {
-      Authorization: `Bearer ${token}`,
-    },
   });
 
   if (error) {
@@ -66,8 +56,7 @@ export async function procesarCheckin(
   request: CheckinAIRequest,
 ): Promise<{ feedback: string; tarea_manana: string }> {
   return callEdgeFunction<{ feedback: string; tarea_manana: string }>('forge-checkin', {
-    tipo: 'CHECKIN',
-    datos: request,
+    checkin: request,
   });
 }
 
@@ -75,7 +64,7 @@ export async function consultarIA(
   request: ConsultaAIRequest,
 ): Promise<{ respuesta: string }> {
   return callEdgeFunction<{ respuesta: string }>('forge-consulta', {
-    tipo: 'CONSULTA',
-    datos: request,
+    pregunta: request.pregunta,
+    contexto_adicional: request.contexto,
   });
 }

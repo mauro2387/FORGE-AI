@@ -57,7 +57,7 @@ export function useBandData() {
             .select('*')
             .eq('user_id', userId)
             .eq('fecha', hoy)
-            .single();
+            .maybeSingle();
 
           if (savedData) {
             setData(savedData as BandData);

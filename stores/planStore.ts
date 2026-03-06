@@ -14,7 +14,7 @@ interface PlanState {
   loading: boolean;
   error: string | null;
 
-  fetchPlanActual: () => Promise<void>;
+  fetchPlanActual: (userId?: string) => Promise<void>;
   setPlanActual: (plan: WeeklyPlan) => void;
   getDiaHoy: () => DiaPlan | null;
   getDiaSemana: () => DiaSemana;
@@ -35,22 +35,25 @@ export const usePlanStore = create<PlanState>((set, get) => ({
   loading: false,
   error: null,
 
-  fetchPlanActual: async () => {
+  fetchPlanActual: async (userId?: string) => {
     set({ loading: true, error: null });
     try {
-      const { data: sessionData } = await supabase.auth.getSession();
-      const userId = sessionData.session?.user?.id;
-      if (!userId) throw new Error('Sin sesión');
+      let uid = userId;
+      if (!uid) {
+        const { data: sessionData } = await supabase.auth.getSession();
+        uid = sessionData.session?.user?.id;
+      }
+      if (!uid) throw new Error('Sin sesión');
 
       const { data, error } = await supabase
         .from('weekly_plans')
         .select('*')
-        .eq('user_id', userId)
+        .eq('user_id', uid)
         .order('semana_numero', { ascending: false })
         .limit(1)
-        .single();
+        .maybeSingle();
 
-      if (error && error.code !== 'PGRST116') throw error;
+      if (error) throw error;
 
       set({ planActual: data as WeeklyPlan | null, loading: false });
     } catch (err) {

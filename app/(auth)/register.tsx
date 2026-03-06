@@ -27,17 +27,30 @@ export default function RegisterScreen() {
     }
 
     setLoading(true);
-    const { error } = await supabase.auth.signUp({
+    const { data: authData, error } = await supabase.auth.signUp({
       email: email.trim(),
       password,
     });
-    setLoading(false);
+    
 
     if (error) {
+      setLoading(false);
       Alert.alert('Error de registro', error.message);
       return;
     }
 
+    // Create initial user_profiles row
+    if (authData.user) {
+      await supabase.from('user_profiles').upsert({
+        id: authData.user.id,
+        email: email.trim(),
+        onboarding_completo: false,
+        created_at: new Date().toISOString(),
+        updated_at: new Date().toISOString(),
+      }, { onConflict: 'id' });
+    }
+
+    setLoading(false);
     router.replace('/');
   }
 

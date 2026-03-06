@@ -105,7 +105,7 @@ export const useHabitsStore = create<HabitsState>((set, get) => ({
 
         const { data, error } = await supabase
           .from('habit_logs')
-          .insert(newLog)
+          .upsert(newLog, { onConflict: 'user_id,fecha,habito' })
           .select('*')
           .single();
 

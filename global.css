@@ -1,3 +1,35 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+/* Web font-face declarations for custom fonts */
+@font-face {
+  font-family: 'BebasNeue';
+  src: url('./assets/fonts/BebasNeue-Regular.ttf') format('truetype');
+  font-display: swap;
+}
+@font-face {
+  font-family: 'ShareTechMono';
+  src: url('./assets/fonts/ShareTechMono-Regular.ttf') format('truetype');
+  font-display: swap;
+}
+@font-face {
+  font-family: 'BarlowCondensed-Regular';
+  src: url('./assets/fonts/BarlowCondensed-Regular.ttf') format('truetype');
+  font-display: swap;
+}
+@font-face {
+  font-family: 'BarlowCondensed-Medium';
+  src: url('./assets/fonts/BarlowCondensed-Medium.ttf') format('truetype');
+  font-display: swap;
+}
+@font-face {
+  font-family: 'BarlowCondensed-SemiBold';
+  src: url('./assets/fonts/BarlowCondensed-SemiBold.ttf') format('truetype');
+  font-display: swap;
+}
+@font-face {
+  font-family: 'BarlowCondensed-Bold';
+  src: url('./assets/fonts/BarlowCondensed-Bold.ttf') format('truetype');
+  font-display: swap;
+}

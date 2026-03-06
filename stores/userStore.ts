@@ -44,8 +44,8 @@ export const useUserStore = create<UserState>((set, get) => ({
         .from('user_profiles')
         .select('*')
         .eq('id', uid)
-        .single();
-      if (error && error.code !== 'PGRST116') throw error;
+        .maybeSingle();
+      if (error) throw error;
       if (data) {
         set({ profile: data as UserProfile, isOnboarded: data.onboarding_completo, loading: false });
       } else {

@@ -27,7 +27,7 @@ export default function RootLayout() {
         await Font.loadAsync({
           'BebasNeue': require('../assets/fonts/BebasNeue-Regular.ttf'),
           'ShareTechMono': require('../assets/fonts/ShareTechMono-Regular.ttf'),
-          'BarlowCondensed': require('../assets/fonts/BarlowCondensed-Regular.ttf'),
+          'BarlowCondensed-Regular': require('../assets/fonts/BarlowCondensed-Regular.ttf'),
           'BarlowCondensed-Medium': require('../assets/fonts/BarlowCondensed-Medium.ttf'),
           'BarlowCondensed-SemiBold': require('../assets/fonts/BarlowCondensed-SemiBold.ttf'),
           'BarlowCondensed-Bold': require('../assets/fonts/BarlowCondensed-Bold.ttf'),

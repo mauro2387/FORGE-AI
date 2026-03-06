@@ -54,9 +54,9 @@ export const useNutritionStore = create<NutritionState>((set, get) => ({
         .select('*')
         .eq('user_id', userId)
         .eq('fecha', hoy)
-        .single();
+        .maybeSingle();
 
-      if (error && error.code !== 'PGRST116') throw error;
+      if (error) throw error;
 
       if (data) {
         set({ logHoy: data as NutritionLog, loading: false });
