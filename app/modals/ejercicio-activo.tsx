@@ -41,7 +41,7 @@ export default function EjercicioActivoModal() {
 
   if (workoutCompletado) {
     return (
-      <View className="flex-1 bg-bg">
+      <View style={{ flex: 1, backgroundColor: COLORS.bg }}>
         <WorkoutSummary
           ejercicios={seriesCompletadasDelEjercicio.length > 0 ? useWorkoutStore.getState().ejerciciosCompletados : []}
           duracionMin={0}
@@ -56,18 +56,20 @@ export default function EjercicioActivoModal() {
 
   if (!ejercicioActual) {
     return (
-      <View className="flex-1 bg-bg items-center justify-center">
+      <View style={{ flex: 1, backgroundColor: COLORS.bg, alignItems: 'center', justifyContent: 'center' }}>
         <Text style={{ fontFamily: FONTS.body, fontSize: 16, color: COLORS.textB }}>
           Sin ejercicio cargado
         </Text>
-        <Button title="VOLVER" onPress={() => router.back()} variant="outline" className="mt-4" />
+        <View style={{ marginTop: 16 }}>
+          <Button title="VOLVER" onPress={() => router.back()} variant="outline" />
+        </View>
       </View>
     );
   }
 
   if (enDescanso) {
     return (
-      <View className="flex-1 bg-bg items-center justify-center p-6">
+      <View style={{ flex: 1, backgroundColor: COLORS.bg, alignItems: 'center', justifyContent: 'center', padding: 24 }}>
         <RestTimer
           duracionSeg={ejercicioActual.descanso_seg}
           onComplete={finalizarDescanso}
@@ -110,11 +112,11 @@ export default function EjercicioActivoModal() {
 
   return (
     <ScrollView
-      className="flex-1 bg-bg"
+      style={{ flex: 1, backgroundColor: COLORS.bg }}
       contentContainerStyle={{ padding: 16, paddingTop: 16 }}
     >
       {/* Header */}
-      <View className="flex-row items-center justify-between mb-4">
+      <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', marginBottom: 16 }}>
         <Pressable onPress={() => router.back()}>
           <Text style={{ fontFamily: FONTS.mono, fontSize: 14, color: COLORS.textB }}>
             ← ATRÁS
@@ -147,7 +149,7 @@ export default function EjercicioActivoModal() {
       <ProgressBar progress={progresoTotal} />
 
       {/* Exercise Info */}
-      <View className="mt-4">
+      <View style={{ marginTop: 16 }}>
         <Text style={{ fontFamily: FONTS.title, fontSize: 28, color: COLORS.accent }}>
           {ejercicioActual.nombre}
         </Text>
@@ -164,12 +166,12 @@ export default function EjercicioActivoModal() {
       </View>
 
       {/* GIF */}
-      <View className="mt-4 rounded-xl overflow-hidden">
+      <View style={{ marginTop: 16, borderRadius: 14, overflow: 'hidden' }}>
         <ExerciseGif exerciseDbId={ejercicioActual.exercise_db_id} nombre={ejercicioActual.nombre} />
       </View>
 
       {/* Series completadas */}
-      <View className="mt-6">
+      <View style={{ marginTop: 24 }}>
         <Text style={{ fontFamily: FONTS.mono, fontSize: 10, color: COLORS.textB, marginBottom: 8 }}>
           SERIES COMPLETADAS
         </Text>
@@ -187,13 +189,13 @@ export default function EjercicioActivoModal() {
 
       {/* Serie actual */}
       {!ejercicioCompletado && (
-        <View className="mt-4 p-4 rounded-xl border border-accent bg-bg2">
+        <View style={{ marginTop: 16, padding: 16, borderRadius: 14, borderWidth: 1, borderColor: COLORS.accent, backgroundColor: '#0c0e12' }}>
           <Text style={{ fontFamily: FONTS.mono, fontSize: 10, color: COLORS.accent, marginBottom: 8 }}>
             SERIE {serieActual} DE {ejercicioActual.series}
           </Text>
 
-          <View className="flex-row gap-3">
-            <View className="flex-1">
+          <View style={{ flexDirection: 'row', gap: 12 }}>
+            <View style={{ flex: 1 }}>
               <Input
                 label="REPS"
                 value={repsInput}
@@ -203,7 +205,7 @@ export default function EjercicioActivoModal() {
               />
             </View>
             {ejercicioActual.peso_kg != null && (
-              <View className="flex-1">
+              <View style={{ flex: 1 }}>
                 <Input
                   label="PESO (kg)"
                   value={pesoInput}
@@ -215,26 +217,28 @@ export default function EjercicioActivoModal() {
             )}
           </View>
 
-          <Button
-            title="✓ COMPLETAR SERIE"
-            variant="primary"
-            onPress={handleCompletarSerie}
-            className="mt-4"
-          />
+          <View style={{ marginTop: 16 }}>
+            <Button
+              title="✓ COMPLETAR SERIE"
+              variant="primary"
+              onPress={handleCompletarSerie}
+            />
+          </View>
         </View>
       )}
 
       {/* Siguiente ejercicio */}
       {ejercicioCompletado && !workoutCompletado && (
-        <Button
-          title="SIGUIENTE EJERCICIO →"
-          variant="primary"
-          onPress={handleSiguienteEjercicio}
-          className="mt-6"
-        />
+        <View style={{ marginTop: 24 }}>
+          <Button
+            title="SIGUIENTE EJERCICIO →"
+            variant="primary"
+            onPress={handleSiguienteEjercicio}
+          />
+        </View>
       )}
 
-      <View className="h-8" />
+      <View style={{ height: 32 }} />
     </ScrollView>
   );
 }

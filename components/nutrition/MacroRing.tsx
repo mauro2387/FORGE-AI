@@ -6,6 +6,7 @@
 import React from 'react';
 import { View, Text } from 'react-native';
 import Svg, { Circle } from 'react-native-svg';
+import { COLORS, FONTS } from '@/constants/theme';
 
 interface MacroRingProps {
   consumido: number;
@@ -30,7 +31,7 @@ export function MacroRing({
   const restante = Math.max(objetivo - consumido, 0);
 
   return (
-    <View className="items-center gap-1">
+    <View style={{ alignItems: 'center', gap: 4 }}>
       <View style={{ width: size, height: size }}>
         <Svg width={size} height={size}>
           <Circle
@@ -55,14 +56,13 @@ export function MacroRing({
           />
         </Svg>
         <View
-          className="absolute items-center justify-center"
-          style={{ width: size, height: size }}
+          style={{ position: 'absolute', alignItems: 'center', justifyContent: 'center', width: size, height: size }}
         >
-          <Text className="text-white font-bebas text-lg">{Math.round(consumido)}</Text>
+          <Text style={{ fontFamily: FONTS.title, fontSize: 18, color: COLORS.white }}>{Math.round(consumido)}</Text>
         </View>
       </View>
-      <Text className="text-text font-mono text-xs uppercase">{label}</Text>
-      <Text className="text-text font-mono text-xs">{Math.round(restante)} rest</Text>
+      <Text style={{ fontFamily: FONTS.mono, fontSize: 12, color: COLORS.text, textTransform: 'uppercase' }}>{label}</Text>
+      <Text style={{ fontFamily: FONTS.mono, fontSize: 12, color: COLORS.text }}>{Math.round(restante)} rest</Text>
     </View>
   );
 }

@@ -7,6 +7,7 @@ import React from 'react';
 import { View, Text, TouchableOpacity } from 'react-native';
 import { Card } from '@/components/ui/Card';
 import { RachaFlame } from './RachaFlame';
+import { COLORS, FONTS } from '@/constants/theme';
 import type { AddictionStreak } from '@/types/plan.types';
 
 interface RachaCardProps {
@@ -20,32 +21,32 @@ export function RachaCard({ racha, onReset }: RachaCardProps) {
 
   return (
     <Card>
-      <View className="flex-row items-center justify-between">
-        <View className="flex-row items-center gap-3 flex-1">
+      <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between' }}>
+        <View style={{ flexDirection: 'row', alignItems: 'center', gap: 12, flex: 1 }}>
           {esRachaActiva && <RachaFlame dias={diasActuales} />}
 
-          <View className="flex-1">
-            <Text className="text-white font-barlow-bold text-base capitalize">
+          <View style={{ flex: 1 }}>
+            <Text style={{ fontFamily: FONTS.bodyBold, fontSize: 16, color: COLORS.white, textTransform: 'capitalize' }}>
               {racha.tipo.replace('_', ' ')}
             </Text>
-            <Text className="text-text font-mono text-xs">
+            <Text style={{ fontFamily: FONTS.mono, fontSize: 12, color: COLORS.text }}>
               Mejor racha: {racha.mejor_racha_dias} días
             </Text>
           </View>
         </View>
 
-        <View className="items-end">
-          <Text className="text-accent font-bebas text-3xl">{diasActuales}</Text>
-          <Text className="text-text font-mono text-xs">DÍAS</Text>
+        <View style={{ alignItems: 'flex-end' }}>
+          <Text style={{ fontFamily: FONTS.title, fontSize: 30, color: COLORS.accent }}>{diasActuales}</Text>
+          <Text style={{ fontFamily: FONTS.mono, fontSize: 12, color: COLORS.text }}>DÍAS</Text>
         </View>
       </View>
 
       <TouchableOpacity
         onPress={onReset}
-        className="mt-3 py-2 items-center border border-danger/30 rounded-lg"
+        style={{ marginTop: 12, paddingVertical: 8, alignItems: 'center', borderWidth: 1, borderColor: 'rgba(239, 68, 68, 0.3)', borderRadius: 10 }}
         accessibilityLabel={`Resetear racha de ${racha.tipo}`}
       >
-        <Text className="text-danger font-mono text-xs uppercase">
+        <Text style={{ fontFamily: FONTS.mono, fontSize: 12, color: '#ef4444', textTransform: 'uppercase' }}>
           Recaí hoy
         </Text>
       </TouchableOpacity>

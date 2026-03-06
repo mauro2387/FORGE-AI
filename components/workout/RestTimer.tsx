@@ -7,6 +7,7 @@ import React from 'react';
 import { View, Text } from 'react-native';
 import { TimerDisplay } from '@/components/ui/Timer';
 import { useTimer } from '@/hooks/useTimer';
+import { COLORS, FONTS } from '@/constants/theme';
 
 interface RestTimerProps {
   duracionSeg: number;
@@ -24,8 +25,8 @@ export function RestTimer({ duracionSeg, onComplete, onSkip }: RestTimerProps) {
   });
 
   return (
-    <View className="bg-bg2 border border-border rounded-2xl p-6 items-center gap-4">
-      <Text className="text-text font-mono text-xs uppercase tracking-widest">
+    <View style={{ backgroundColor: '#0c0e12', borderWidth: 1, borderColor: COLORS.border, borderRadius: 18, padding: 24, alignItems: 'center', gap: 16 }}>
+      <Text style={{ fontFamily: FONTS.mono, fontSize: 12, color: COLORS.text, textTransform: 'uppercase', letterSpacing: 2 }}>
         Descanso
       </Text>
 
@@ -39,7 +40,7 @@ export function RestTimer({ duracionSeg, onComplete, onSkip }: RestTimerProps) {
         onSkip={onSkip}
       />
 
-      <Text className="text-text font-barlow text-sm text-center">
+      <Text style={{ fontFamily: FONTS.body, fontSize: 14, color: COLORS.text, textAlign: 'center' }}>
         Preparate para la siguiente serie
       </Text>
     </View>

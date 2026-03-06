@@ -1,27 +1,40 @@
 /**
  * Card.tsx — Card base de FORGE (fondo bg2, borde border)
- * Dependencias: NativeWind
+ * Dependencias: theme
  */
 
 import React from 'react';
-import { View } from 'react-native';
+import { View, StyleSheet, ViewStyle } from 'react-native';
+import { COLORS } from '@/constants/theme';
 
 interface CardProps {
   children: React.ReactNode;
-  className?: string;
   noPadding?: boolean;
+  style?: ViewStyle;
 }
 
-export function Card({ children, className = '', noPadding = false }: CardProps) {
+export function Card({ children, noPadding = false, style }: CardProps) {
   return (
     <View
-      className={`
-        bg-bg2 border border-border rounded-xl
-        ${noPadding ? '' : 'p-4'}
-        ${className}
-      `}
+      style={[
+        styles.card,
+        noPadding ? undefined : styles.padding,
+        style,
+      ]}
     >
       {children}
     </View>
   );
 }
+
+const styles = StyleSheet.create({
+  card: {
+    backgroundColor: '#0e1117',
+    borderWidth: 1,
+    borderColor: '#1e2433',
+    borderRadius: 14,
+  },
+  padding: {
+    padding: 16,
+  },
+});

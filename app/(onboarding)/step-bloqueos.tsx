@@ -33,7 +33,7 @@ export default function StepBloqueos() {
 
   return (
     <ScrollView
-      className="flex-1 bg-bg"
+      style={{ flex: 1, backgroundColor: COLORS.bg }}
       contentContainerStyle={{ padding: 24, paddingTop: 60 }}
     >
       <ProgressBar progress={5 / 7} />
@@ -41,7 +41,7 @@ export default function StepBloqueos() {
       <Text style={{ fontFamily: FONTS.title, fontSize: 32, color: COLORS.accent, marginTop: 24 }}>
         BLOQUEO DE APPS
       </Text>
-      <Text style={{ fontFamily: FONTS.mono, fontSize: 11, color: COLORS.textB, marginTop: 4 }}>
+      <Text style={{ fontFamily: FONTS.mono, fontSize: 11, color: COLORS.text, marginTop: 4, letterSpacing: 1 }}>
         PASO 5/7 — ELIMINACIÓN DE DISTRACCIONES
       </Text>
       <Text style={{ fontFamily: FONTS.body, fontSize: 13, color: COLORS.textB, marginTop: 8 }}>
@@ -49,8 +49,8 @@ export default function StepBloqueos() {
         Es opcional — requiere permisos especiales en Android.
       </Text>
 
-      <View className="flex-row gap-3 mt-6">
-        <View className="flex-1">
+      <View style={{ flexDirection: 'row', gap: 12, marginTop: 24 }}>
+        <View style={{ flex: 1 }}>
           <Input
             label="DESDE"
             value={horaInicio}
@@ -58,7 +58,7 @@ export default function StepBloqueos() {
             placeholder="06:00"
           />
         </View>
-        <View className="flex-1">
+        <View style={{ flex: 1 }}>
           <Input
             label="HASTA"
             value={horaFin}
@@ -68,16 +68,22 @@ export default function StepBloqueos() {
         </View>
       </View>
 
-      <View className="gap-2 mt-6">
+      <View style={{ gap: 8, marginTop: 24 }}>
         {APPS_POPULARES.map((app) => {
           const selected = data.apps_bloquear.some((b) => b.app_package === app.package_name);
           return (
             <Pressable
               key={app.package_name}
               onPress={() => handleToggleApp(app)}
-              className={`flex-row items-center p-3 rounded-lg border ${
-                selected ? 'border-accent bg-bg2' : 'border-border bg-bg'
-              }`}
+              style={{
+                flexDirection: 'row',
+                alignItems: 'center',
+                padding: 12,
+                borderRadius: 10,
+                borderWidth: 1,
+                borderColor: selected ? COLORS.accent : COLORS.border,
+                backgroundColor: selected ? '#0c0e12' : COLORS.bg,
+              }}
             >
               <Text style={{ fontSize: 20, marginRight: 10 }}>{app.icono}</Text>
               <Text
@@ -100,19 +106,21 @@ export default function StepBloqueos() {
         })}
       </View>
 
-      <View className="flex-row gap-3 mt-8">
-        <Button
-          title="← ATRÁS"
-          onPress={() => router.back()}
-          variant="outline"
-          className="flex-1"
-        />
-        <Button
-          title="SIGUIENTE →"
-          onPress={() => router.push('/(onboarding)/step-fotos')}
-          variant="primary"
-          className="flex-1"
-        />
+      <View style={{ flexDirection: 'row', gap: 12, marginTop: 32 }}>
+        <View style={{ flex: 1 }}>
+          <Button
+            title="← ATRÁS"
+            onPress={() => router.back()}
+            variant="outline"
+          />
+        </View>
+        <View style={{ flex: 1 }}>
+          <Button
+            title="SIGUIENTE →"
+            onPress={() => router.push('/(onboarding)/step-fotos')}
+            variant="primary"
+          />
+        </View>
       </View>
     </ScrollView>
   );

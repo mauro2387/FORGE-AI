@@ -49,11 +49,11 @@ export default function ConsultaIAModal() {
 
   return (
     <KeyboardAvoidingView
-      className="flex-1 bg-bg"
+      style={{ flex: 1, backgroundColor: COLORS.bg }}
       behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
     >
       {/* Header */}
-      <View className="flex-row items-center justify-between px-4 pt-14 pb-3 border-b border-border">
+      <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', paddingHorizontal: 16, paddingTop: 56, paddingBottom: 12, borderBottomWidth: 1, borderBottomColor: COLORS.border }}>
         <Pressable onPress={() => router.back()}>
           <Text style={{ fontFamily: FONTS.mono, fontSize: 14, color: COLORS.textB }}>
             ← CERRAR
@@ -68,12 +68,12 @@ export default function ConsultaIAModal() {
       {/* Messages */}
       <ScrollView
         ref={scrollRef}
-        className="flex-1"
+        style={{ flex: 1 }}
         contentContainerStyle={{ padding: 16 }}
         onContentSizeChange={() => scrollRef.current?.scrollToEnd({ animated: true })}
       >
         {mensajes.length === 0 && (
-          <View className="items-center mt-12">
+          <View style={{ alignItems: 'center', marginTop: 48 }}>
             <Text style={{ fontSize: 48 }}>⚒️</Text>
             <Text
               style={{
@@ -100,7 +100,7 @@ export default function ConsultaIAModal() {
               FORGE tiene acceso a tu perfil, plan y progreso.
             </Text>
 
-            <View className="gap-2 mt-6 w-full">
+            <View style={{ gap: 8, marginTop: 24, width: '100%' }}>
               {[
                 '¿Cómo mejoro mis dominadas?',
                 '¿Qué como antes de entrenar?',
@@ -110,7 +110,7 @@ export default function ConsultaIAModal() {
                 <Pressable
                   key={sugerencia}
                   onPress={() => setPregunta(sugerencia)}
-                  className="p-3 rounded-lg border border-border"
+                  style={{ padding: 12, borderRadius: 10, borderWidth: 1, borderColor: COLORS.border }}
                 >
                   <Text style={{ fontFamily: FONTS.body, fontSize: 13, color: COLORS.textB }}>
                     {sugerencia}
@@ -124,14 +124,19 @@ export default function ConsultaIAModal() {
         {mensajes.map((msg, idx) => (
           <View
             key={idx}
-            className={`mb-4 ${msg.role === 'user' ? 'items-end' : 'items-start'}`}
+            style={{ marginBottom: 16, alignItems: msg.role === 'user' ? 'flex-end' : 'flex-start' }}
           >
             <View
-              className={`max-w-[85%] p-3 rounded-xl ${
-                msg.role === 'user'
-                  ? 'bg-accent rounded-br-none'
-                  : 'bg-bg2 border border-border rounded-bl-none'
-              }`}
+              style={{
+                maxWidth: '85%',
+                padding: 12,
+                borderRadius: 14,
+                backgroundColor: msg.role === 'user' ? COLORS.accent : '#0c0e12',
+                borderWidth: msg.role === 'user' ? 0 : 1,
+                borderColor: COLORS.border,
+                borderBottomRightRadius: msg.role === 'user' ? 0 : 14,
+                borderBottomLeftRadius: msg.role === 'user' ? 14 : 0,
+              }}
             >
               <Text
                 style={{
@@ -146,9 +151,9 @@ export default function ConsultaIAModal() {
             </View>
 
             {msg.acciones && msg.acciones.length > 0 && (
-              <View className="mt-2 gap-1 max-w-[85%]">
+              <View style={{ marginTop: 8, gap: 4, maxWidth: '85%' }}>
                 {msg.acciones.map((accion, aIdx) => (
-                  <View key={aIdx} className="flex-row items-start gap-1">
+                  <View key={aIdx} style={{ flexDirection: 'row', alignItems: 'flex-start', gap: 4 }}>
                     <Text style={{ fontFamily: FONTS.mono, fontSize: 10, color: COLORS.accent }}>
                       →
                     </Text>
@@ -163,8 +168,8 @@ export default function ConsultaIAModal() {
         ))}
 
         {aiLoading && (
-          <View className="items-start mb-4">
-            <View className="bg-bg2 border border-border p-3 rounded-xl rounded-bl-none max-w-[85%]">
+          <View style={{ alignItems: 'flex-start', marginBottom: 16 }}>
+            <View style={{ backgroundColor: '#0c0e12', borderWidth: 1, borderColor: COLORS.border, padding: 12, borderRadius: 14, borderBottomLeftRadius: 0, maxWidth: '85%' }}>
               <Text
                 style={{
                   fontFamily: FONTS.mono,
@@ -181,8 +186,8 @@ export default function ConsultaIAModal() {
       </ScrollView>
 
       {/* Input */}
-      <View className="p-4 border-t border-border flex-row gap-2 items-end">
-        <View className="flex-1">
+      <View style={{ padding: 16, borderTopWidth: 1, borderTopColor: COLORS.border, flexDirection: 'row', gap: 8, alignItems: 'flex-end' }}>
+        <View style={{ flex: 1 }}>
           <Input
             value={pregunta}
             onChangeText={setPregunta}

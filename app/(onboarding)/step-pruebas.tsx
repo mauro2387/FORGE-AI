@@ -12,7 +12,7 @@ export default function StepPruebas() {
 
   return (
     <KeyboardAvoidingView
-      className="flex-1 bg-bg"
+      style={{ flex: 1, backgroundColor: COLORS.bg }}
       behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
     >
       <ScrollView
@@ -24,14 +24,14 @@ export default function StepPruebas() {
         <Text style={{ fontFamily: FONTS.title, fontSize: 32, color: COLORS.accent, marginTop: 24 }}>
           PRUEBAS FÍSICAS
         </Text>
-        <Text style={{ fontFamily: FONTS.mono, fontSize: 11, color: COLORS.textB, marginTop: 4 }}>
+        <Text style={{ fontFamily: FONTS.mono, fontSize: 11, color: COLORS.text, marginTop: 4, letterSpacing: 1 }}>
           PASO 3/7 — EVALUACIÓN INICIAL
         </Text>
         <Text style={{ fontFamily: FONTS.body, fontSize: 13, color: COLORS.textB, marginTop: 8 }}>
           Hacé cada ejercicio al máximo. Si no podés hacer alguno, poné 0. Esto calibra tu plan.
         </Text>
 
-        <View className="gap-4 mt-8">
+        <View style={{ gap: 16, marginTop: 32 }}>
           <Input
             label="FLEXIONES MÁXIMAS (sin parar)"
             value={p.flexiones_max > 0 ? String(p.flexiones_max) : ''}
@@ -73,19 +73,21 @@ export default function StepPruebas() {
           />
         </View>
 
-        <View className="flex-row gap-3 mt-8">
-          <Button
-            title="← ATRÁS"
-            onPress={() => router.back()}
-            variant="outline"
-            className="flex-1"
-          />
-          <Button
-            title="SIGUIENTE →"
-            onPress={() => router.push('/(onboarding)/step-adicciones')}
-            variant="primary"
-            className="flex-1"
-          />
+        <View style={{ flexDirection: 'row', gap: 12, marginTop: 32 }}>
+          <View style={{ flex: 1 }}>
+            <Button
+              title="← ATRÁS"
+              onPress={() => router.back()}
+              variant="outline"
+            />
+          </View>
+          <View style={{ flex: 1 }}>
+            <Button
+              title="SIGUIENTE →"
+              onPress={() => router.push('/(onboarding)/step-adicciones')}
+              variant="primary"
+            />
+          </View>
         </View>
       </ScrollView>
     </KeyboardAvoidingView>

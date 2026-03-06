@@ -8,6 +8,7 @@ import { View, Text } from 'react-native';
 import { Card } from '@/components/ui/Card';
 import { MacroRing } from './MacroRing';
 import { ProgressBar } from '@/components/ui/ProgressBar';
+import { COLORS, FONTS } from '@/constants/theme';
 
 interface CaloriasSummaryProps {
   consumido: {
@@ -29,23 +30,23 @@ export function CaloriasSummary({ consumido, objetivo }: CaloriasSummaryProps) {
 
   return (
     <Card>
-      <View className="items-center mb-4">
-        <Text className="text-accent font-bebas text-4xl">
+      <View style={{ alignItems: 'center', marginBottom: 16 }}>
+        <Text style={{ fontFamily: FONTS.title, fontSize: 36, color: COLORS.accent }}>
           {Math.round(consumido.calorias)}
         </Text>
-        <Text className="text-text font-mono text-xs">
+        <Text style={{ fontFamily: FONTS.mono, fontSize: 12, color: COLORS.text }}>
           DE {objetivo.calorias} KCAL
         </Text>
         <ProgressBar
           progress={objetivo.calorias > 0 ? consumido.calorias / objetivo.calorias : 0}
           height={6}
         />
-        <Text className={`font-mono text-sm mt-1 ${restante >= 0 ? 'text-olive-l' : 'text-danger'}`}>
+        <Text style={{ fontFamily: FONTS.mono, fontSize: 14, color: restante >= 0 ? '#587050' : '#ef4444', marginTop: 4 }}>
           {restante >= 0 ? `${Math.round(restante)} kcal restantes` : `${Math.abs(Math.round(restante))} kcal excedido`}
         </Text>
       </View>
 
-      <View className="flex-row justify-around">
+      <View style={{ flexDirection: 'row', justifyContent: 'space-around' }}>
         <MacroRing
           consumido={consumido.proteina_g}
           objetivo={objetivo.proteina_g}

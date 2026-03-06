@@ -1,11 +1,12 @@
 /**
  * Timer.tsx — Display de timer con sonido y vibración
- * Dependencias: useTimer, NativeWind
+ * Dependencias: useTimer, theme
  */
 
 import React from 'react';
-import { View, Text, TouchableOpacity } from 'react-native';
+import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
 import { ProgressBar } from './ProgressBar';
+import { COLORS, FONTS } from '@/constants/theme';
 
 interface TimerDisplayProps {
   formatTiempo: string;
@@ -29,58 +30,96 @@ export function TimerDisplay({
   label,
 }: TimerDisplayProps) {
   return (
-    <View className="items-center gap-4">
-      {label && (
-        <Text className="text-text font-mono text-xs uppercase tracking-widest">
-          {label}
-        </Text>
-      )}
+    <View style={styles.container}>
+      {label && <Text style={styles.label}>{label}</Text>}
 
-      <Text className="text-accent font-bebas text-6xl tracking-wider">
-        {formatTiempo}
-      </Text>
+      <Text style={styles.time}>{formatTiempo}</Text>
 
-      <View className="w-full px-8">
+      <View style={styles.barWrap}>
         <ProgressBar progress={progreso} height={4} />
       </View>
 
-      <View className="flex-row gap-4">
+      <View style={styles.buttons}>
         {corriendo ? (
-          <TouchableOpacity
-            onPress={onPause}
-            className="bg-border px-6 py-2 rounded-lg"
-            accessibilityLabel="Pausar timer"
-          >
-            <Text className="text-text-b font-mono text-sm uppercase">Pausa</Text>
+          <TouchableOpacity onPress={onPause} style={styles.btnSecondary}>
+            <Text style={styles.btnSecondaryText}>PAUSA</Text>
           </TouchableOpacity>
         ) : (
-          <TouchableOpacity
-            onPress={onStart}
-            className="bg-accent px-6 py-2 rounded-lg"
-            accessibilityLabel="Iniciar timer"
-          >
-            <Text className="text-bg font-mono text-sm uppercase">Iniciar</Text>
+          <TouchableOpacity onPress={onStart} style={styles.btnPrimary}>
+            <Text style={styles.btnPrimaryText}>INICIAR</Text>
           </TouchableOpacity>
         )}
 
-        <TouchableOpacity
-          onPress={onReset}
-          className="bg-border px-4 py-2 rounded-lg"
-          accessibilityLabel="Resetear timer"
-        >
-          <Text className="text-text font-mono text-sm uppercase">Reset</Text>
+        <TouchableOpacity onPress={onReset} style={styles.btnSecondary}>
+          <Text style={styles.btnSecondaryText}>RESET</Text>
         </TouchableOpacity>
 
         {onSkip && (
-          <TouchableOpacity
-            onPress={onSkip}
-            className="bg-transparent border border-border px-4 py-2 rounded-lg"
-            accessibilityLabel="Saltar descanso"
-          >
-            <Text className="text-text font-mono text-sm uppercase">Skip</Text>
+          <TouchableOpacity onPress={onSkip} style={styles.btnOutline}>
+            <Text style={styles.btnSecondaryText}>SKIP</Text>
           </TouchableOpacity>
         )}
       </View>
     </View>
   );
 }
+
+const styles = StyleSheet.create({
+  container: {
+    alignItems: 'center',
+    gap: 16,
+  },
+  label: {
+    color: COLORS.text,
+    fontFamily: FONTS.mono,
+    fontSize: 11,
+    textTransform: 'uppercase',
+    letterSpacing: 2,
+  },
+  time: {
+    color: COLORS.accent,
+    fontFamily: FONTS.bebas,
+    fontSize: 60,
+    letterSpacing: 2,
+  },
+  barWrap: {
+    width: '100%',
+    paddingHorizontal: 32,
+  },
+  buttons: {
+    flexDirection: 'row',
+    gap: 12,
+  },
+  btnPrimary: {
+    backgroundColor: COLORS.accent,
+    paddingHorizontal: 24,
+    paddingVertical: 10,
+    borderRadius: 8,
+  },
+  btnPrimaryText: {
+    color: COLORS.bg,
+    fontFamily: FONTS.mono,
+    fontSize: 13,
+    textTransform: 'uppercase',
+  },
+  btnSecondary: {
+    backgroundColor: '#1e2433',
+    paddingHorizontal: 16,
+    paddingVertical: 10,
+    borderRadius: 8,
+  },
+  btnSecondaryText: {
+    color: COLORS.textB,
+    fontFamily: FONTS.mono,
+    fontSize: 13,
+    textTransform: 'uppercase',
+  },
+  btnOutline: {
+    backgroundColor: 'transparent',
+    borderWidth: 1,
+    borderColor: '#1e2433',
+    paddingHorizontal: 16,
+    paddingVertical: 10,
+    borderRadius: 8,
+  },
+});

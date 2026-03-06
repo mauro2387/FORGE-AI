@@ -6,6 +6,7 @@
 import React from 'react';
 import { View, Text } from 'react-native';
 import { Card } from '@/components/ui/Card';
+import { COLORS, FONTS } from '@/constants/theme';
 import type { BandData } from '@/types/user.types';
 
 interface BandStatsProps {
@@ -17,10 +18,10 @@ export function BandStats({ data, available }: BandStatsProps) {
   if (!available && !data) {
     return (
       <Card>
-        <Text className="text-text font-mono text-xs uppercase tracking-widest mb-2">
+        <Text style={{ fontFamily: FONTS.mono, fontSize: 12, color: COLORS.text, textTransform: 'uppercase', letterSpacing: 2, marginBottom: 8 }}>
           Huawei Band 7
         </Text>
-        <Text className="text-text font-barlow text-sm">
+        <Text style={{ fontFamily: FONTS.body, fontSize: 14, color: COLORS.text }}>
           Conectá Health Connect para ver tus datos
         </Text>
       </Card>
@@ -29,37 +30,37 @@ export function BandStats({ data, available }: BandStatsProps) {
 
   return (
     <Card>
-      <Text className="text-text font-mono text-xs uppercase tracking-widest mb-3">
+      <Text style={{ fontFamily: FONTS.mono, fontSize: 12, color: COLORS.text, textTransform: 'uppercase', letterSpacing: 2, marginBottom: 12 }}>
         Huawei Band 7
       </Text>
 
-      <View className="flex-row gap-4">
-        <View className="flex-1 items-center">
-          <Text className="text-accent font-bebas text-2xl">
+      <View style={{ flexDirection: 'row', gap: 16 }}>
+        <View style={{ flex: 1, alignItems: 'center' }}>
+          <Text style={{ fontFamily: FONTS.title, fontSize: 24, color: COLORS.accent }}>
             {data?.pasos?.toLocaleString() ?? '—'}
           </Text>
-          <Text className="text-text font-mono text-xs">PASOS</Text>
+          <Text style={{ fontFamily: FONTS.mono, fontSize: 12, color: COLORS.text }}>PASOS</Text>
         </View>
 
-        <View className="flex-1 items-center">
-          <Text className="text-blue font-bebas text-2xl">
+        <View style={{ flex: 1, alignItems: 'center' }}>
+          <Text style={{ fontFamily: FONTS.title, fontSize: 24, color: '#2a7a9a' }}>
             {data?.fc_promedio ?? '—'}
           </Text>
-          <Text className="text-text font-mono text-xs">FC PROM</Text>
+          <Text style={{ fontFamily: FONTS.mono, fontSize: 12, color: COLORS.text }}>FC PROM</Text>
         </View>
 
-        <View className="flex-1 items-center">
-          <Text className="text-olive-l font-bebas text-2xl">
+        <View style={{ flex: 1, alignItems: 'center' }}>
+          <Text style={{ fontFamily: FONTS.title, fontSize: 24, color: '#587050' }}>
             {data?.sueno_horas ? `${data.sueno_horas.toFixed(1)}h` : '—'}
           </Text>
-          <Text className="text-text font-mono text-xs">SUEÑO</Text>
+          <Text style={{ fontFamily: FONTS.mono, fontSize: 12, color: COLORS.text }}>SUEÑO</Text>
         </View>
 
-        <View className="flex-1 items-center">
-          <Text className="text-accent font-bebas text-2xl">
+        <View style={{ flex: 1, alignItems: 'center' }}>
+          <Text style={{ fontFamily: FONTS.title, fontSize: 24, color: COLORS.accent }}>
             {data?.calorias_activas ?? '—'}
           </Text>
-          <Text className="text-text font-mono text-xs">CAL ACT</Text>
+          <Text style={{ fontFamily: FONTS.mono, fontSize: 12, color: COLORS.text }}>CAL ACT</Text>
         </View>
       </View>
     </Card>

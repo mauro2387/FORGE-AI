@@ -1,16 +1,17 @@
 /**
  * ProgressBar.tsx — Barra de progreso animada
- * Dependencias: NativeWind, Reanimated
+ * Dependencias: theme, Reanimated
  */
 
 import React, { useEffect } from 'react';
-import { View, Text } from 'react-native';
+import { View, Text, StyleSheet } from 'react-native';
 import Animated, {
   useSharedValue,
   useAnimatedStyle,
   withTiming,
   Easing,
 } from 'react-native-reanimated';
+import { COLORS, FONTS } from '@/constants/theme';
 
 export interface ProgressBarProps {
   progress: number; // 0-1
@@ -18,12 +19,11 @@ export interface ProgressBarProps {
   height?: number;
   showLabel?: boolean;
   label?: string;
-  className?: string;
 }
 
 export function ProgressBar({
   progress,
-  color = '#c4a040',
+  color = COLORS.accent,
   height = 8,
   showLabel = false,
   label,
@@ -43,26 +43,45 @@ export function ProgressBar({
   }));
 
   return (
-    <View className="gap-1">
+    <View style={styles.container}>
       {showLabel && (
-        <View className="flex-row justify-between">
-          <Text className="text-text font-mono text-xs">
-            {label ?? 'Progreso'}
-          </Text>
-          <Text className="text-text-b font-mono text-xs">
-            {Math.round(progress * 100)}%
-          </Text>
+        <View style={styles.labelRow}>
+          <Text style={styles.label}>{label ?? 'Progreso'}</Text>
+          <Text style={styles.value}>{Math.round(progress * 100)}%</Text>
         </View>
       )}
-      <View
-        className="w-full bg-border rounded-full overflow-hidden"
-        style={{ height }}
-      >
-        <Animated.View
-          className="h-full rounded-full"
-          style={animatedStyle}
-        />
+      <View style={[styles.track, { height }]}>
+        <Animated.View style={[styles.fill, { height }, animatedStyle]} />
       </View>
     </View>
   );
 }
+
+const styles = StyleSheet.create({
+  container: {
+    gap: 4,
+  },
+  labelRow: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+  },
+  label: {
+    color: COLORS.text,
+    fontFamily: FONTS.mono,
+    fontSize: 11,
+  },
+  value: {
+    color: COLORS.textB,
+    fontFamily: FONTS.mono,
+    fontSize: 11,
+  },
+  track: {
+    width: '100%',
+    backgroundColor: '#1e2433',
+    borderRadius: 9999,
+    overflow: 'hidden',
+  },
+  fill: {
+    borderRadius: 9999,
+  },
+});

@@ -133,7 +133,7 @@ export default function StepProcesando() {
 
   if (error) {
     return (
-      <View className="flex-1 bg-bg items-center justify-center p-8">
+      <View style={{ flex: 1, backgroundColor: COLORS.bg, alignItems: 'center', justifyContent: 'center', padding: 32 }}>
         <Text style={{ fontSize: 48 }}>⚠️</Text>
         <Text
           style={{
@@ -157,7 +157,7 @@ export default function StepProcesando() {
         >
           {error}
         </Text>
-        <View className="mt-8 w-full">
+        <View style={{ marginTop: 32, width: '100%' }}>
           <Text
             onPress={() => {
               setError(null);
@@ -179,7 +179,7 @@ export default function StepProcesando() {
   }
 
   return (
-    <View className="flex-1 bg-bg items-center justify-center p-8">
+    <View style={{ flex: 1, backgroundColor: COLORS.bg, alignItems: 'center', justifyContent: 'center', padding: 32 }}>
       <Animated.View style={pulseStyle}>
         <Text style={{ fontSize: 64, textAlign: 'center' }}>⚒️</Text>
       </Animated.View>
@@ -208,7 +208,7 @@ export default function StepProcesando() {
         {MENSAJES[mensajeIdx]}
       </Text>
 
-      <View className="w-full mt-8">
+      <View style={{ width: '100%', marginTop: 32 }}>
         <ProgressBar progress={progress} />
       </View>
 

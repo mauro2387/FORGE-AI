@@ -83,7 +83,7 @@ export default function FotoSemanalModal() {
 
   if (uploaded) {
     return (
-      <View className="flex-1 bg-bg items-center justify-center p-8">
+      <View style={{ flex: 1, backgroundColor: COLORS.bg, alignItems: 'center', justifyContent: 'center', padding: 32 }}>
         <Text style={{ fontSize: 64 }}>📸</Text>
         <Text
           style={{
@@ -107,12 +107,13 @@ export default function FotoSemanalModal() {
         >
           Semana {profile?.semana_programa || 1} registrada. Seguí forjándote.
         </Text>
-        <Button
-          title="CERRAR"
-          variant="primary"
-          onPress={() => router.back()}
-          className="mt-8"
-        />
+        <View style={{ marginTop: 32, width: '100%' }}>
+          <Button
+            title="CERRAR"
+            variant="primary"
+            onPress={() => router.back()}
+          />
+        </View>
       </View>
     );
   }
@@ -125,7 +126,7 @@ export default function FotoSemanalModal() {
 
   return (
     <ScrollView
-      className="flex-1 bg-bg"
+      style={{ flex: 1, backgroundColor: COLORS.bg }}
       contentContainerStyle={{ padding: 24, paddingTop: 60 }}
     >
       <Pressable onPress={() => router.back()}>
@@ -148,16 +149,19 @@ export default function FotoSemanalModal() {
         SEMANA {profile?.semana_programa || 1} — REGISTRO VISUAL
       </Text>
 
-      <View className="gap-4 mt-8">
+      <View style={{ gap: 16, marginTop: 32 }}>
         {TIPOS.map(({ tipo, label }) => {
           const foto = fotos.find((f) => f.tipo === tipo);
           return (
             <Pressable
               key={tipo}
               onPress={() => tomarFoto(tipo)}
-              className={`rounded-xl border overflow-hidden ${
-                foto ? 'border-accent' : 'border-border'
-              }`}
+              style={{
+                borderRadius: 14,
+                borderWidth: 1,
+                overflow: 'hidden',
+                borderColor: foto ? COLORS.accent : COLORS.border,
+              }}
             >
               {foto ? (
                 <Image
@@ -166,7 +170,7 @@ export default function FotoSemanalModal() {
                   resizeMode="cover"
                 />
               ) : (
-                <View className="items-center justify-center p-8">
+                <View style={{ alignItems: 'center', justifyContent: 'center', padding: 32 }}>
                   <Text style={{ fontFamily: FONTS.bodyBold, fontSize: 14, color: COLORS.textB }}>
                     📷 FOTO {label}
                   </Text>
@@ -177,14 +181,15 @@ export default function FotoSemanalModal() {
         })}
       </View>
 
-      <Button
-        title="SUBIR FOTOS"
-        variant="primary"
-        loading={uploading}
-        disabled={fotos.length === 0}
-        onPress={handleUpload}
-        className="mt-8 mb-8"
-      />
+      <View style={{ marginTop: 32, marginBottom: 32 }}>
+        <Button
+          title="SUBIR FOTOS"
+          variant="primary"
+          loading={uploading}
+          disabled={fotos.length === 0}
+          onPress={handleUpload}
+        />
+      </View>
     </ScrollView>
   );
 }

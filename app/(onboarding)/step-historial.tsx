@@ -20,7 +20,7 @@ export default function StepHistorial() {
 
   return (
     <KeyboardAvoidingView
-      className="flex-1 bg-bg"
+      style={{ flex: 1, backgroundColor: COLORS.bg }}
       behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
     >
       <ScrollView
@@ -32,60 +32,68 @@ export default function StepHistorial() {
         <Text style={{ fontFamily: FONTS.title, fontSize: 32, color: COLORS.accent, marginTop: 24 }}>
           HISTORIAL
         </Text>
-        <Text style={{ fontFamily: FONTS.mono, fontSize: 11, color: COLORS.textB, marginTop: 4 }}>
+        <Text style={{ fontFamily: FONTS.mono, fontSize: 11, color: COLORS.text, marginTop: 4, letterSpacing: 1 }}>
           PASO 2/7 — EXPERIENCIA PREVIA
         </Text>
 
-        <View className="gap-3 mt-8">
-          {OPCIONES_HISTORIAL.map((op) => (
-            <Pressable
-              key={op.id}
-              onPress={() => setField('historial_entrenamiento', op.id)}
-              className={`p-4 rounded-lg border ${
-                data.historial_entrenamiento === op.id
-                  ? 'border-accent bg-bg2'
-                  : 'border-border bg-bg'
-              }`}
-            >
-              <Text
+        <View style={{ gap: 12, marginTop: 32 }}>
+          {OPCIONES_HISTORIAL.map((op) => {
+            const selected = data.historial_entrenamiento === op.id;
+            return (
+              <Pressable
+                key={op.id}
+                onPress={() => setField('historial_entrenamiento', op.id)}
                 style={{
-                  fontFamily: FONTS.bodyBold,
-                  fontSize: 16,
-                  color: data.historial_entrenamiento === op.id ? COLORS.accent : COLORS.text,
+                  padding: 16,
+                  borderRadius: 12,
+                  borderWidth: selected ? 1.5 : 1,
+                  borderColor: selected ? COLORS.accent : '#1e2433',
+                  backgroundColor: selected ? '#0e1117' : COLORS.bg,
                 }}
               >
-                {op.label}
-              </Text>
-              <Text style={{ fontFamily: FONTS.body, fontSize: 13, color: COLORS.textB, marginTop: 2 }}>
-                {op.desc}
-              </Text>
-            </Pressable>
-          ))}
+                <Text
+                  style={{
+                    fontFamily: FONTS.bodyBold,
+                    fontSize: 16,
+                    color: selected ? COLORS.accent : COLORS.textB,
+                  }}
+                >
+                  {op.label}
+                </Text>
+                <Text style={{ fontFamily: FONTS.body, fontSize: 13, color: COLORS.text, marginTop: 2 }}>
+                  {op.desc}
+                </Text>
+              </Pressable>
+            );
+          })}
         </View>
 
-        <Input
-          label="MESES INACTIVO"
-          value={data.meses_inactivo > 0 ? String(data.meses_inactivo) : ''}
-          onChangeText={(v) => setField('meses_inactivo', parseInt(v) || 0)}
-          placeholder="¿Cuántos meses sin entrenar?"
-          keyboardType="number-pad"
-          className="mt-6"
-        />
+        <View style={{ marginTop: 24 }}>
+          <Input
+            label="MESES INACTIVO"
+            value={data.meses_inactivo > 0 ? String(data.meses_inactivo) : ''}
+            onChangeText={(v) => setField('meses_inactivo', parseInt(v) || 0)}
+            placeholder="¿Cuántos meses sin entrenar?"
+            keyboardType="number-pad"
+          />
+        </View>
 
-        <View className="flex-row gap-3 mt-8">
-          <Button
-            title="← ATRÁS"
-            onPress={() => router.back()}
-            variant="outline"
-            className="flex-1"
-          />
-          <Button
-            title="SIGUIENTE →"
-            onPress={() => router.push('/(onboarding)/step-pruebas')}
-            variant="primary"
-            disabled={!canContinue}
-            className="flex-1"
-          />
+        <View style={{ flexDirection: 'row', gap: 12, marginTop: 32 }}>
+          <View style={{ flex: 1 }}>
+            <Button
+              title="← ATRÁS"
+              onPress={() => router.back()}
+              variant="outline"
+            />
+          </View>
+          <View style={{ flex: 1 }}>
+            <Button
+              title="SIGUIENTE →"
+              onPress={() => router.push('/(onboarding)/step-pruebas')}
+              variant="primary"
+              disabled={!canContinue}
+            />
+          </View>
         </View>
       </ScrollView>
     </KeyboardAvoidingView>

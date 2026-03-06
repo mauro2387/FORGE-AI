@@ -7,6 +7,7 @@
 import React, { useEffect, useState } from 'react';
 import { View, Image, Text, ActivityIndicator } from 'react-native';
 import { getExerciseGif } from '@/lib/exerciseDb';
+import { COLORS, FONTS } from '@/constants/theme';
 
 interface ExerciseGifProps {
   exerciseDbId: string | null;
@@ -48,10 +49,9 @@ export function ExerciseGif({ exerciseDbId, nombre, size = 120 }: ExerciseGifPro
   if (!exerciseDbId || error) {
     return (
       <View
-        style={{ width: size, height: size }}
-        className="bg-border rounded-xl items-center justify-center"
+        style={{ width: size, height: size, backgroundColor: COLORS.border, borderRadius: 14, alignItems: 'center', justifyContent: 'center' }}
       >
-        <Text className="text-text font-mono text-xs text-center px-2" numberOfLines={2}>
+        <Text style={{ fontFamily: FONTS.mono, fontSize: 12, color: COLORS.text, textAlign: 'center', paddingHorizontal: 8 }} numberOfLines={2}>
           {nombre}
         </Text>
       </View>
@@ -61,8 +61,7 @@ export function ExerciseGif({ exerciseDbId, nombre, size = 120 }: ExerciseGifPro
   if (loading) {
     return (
       <View
-        style={{ width: size, height: size }}
-        className="bg-border rounded-xl items-center justify-center"
+        style={{ width: size, height: size, backgroundColor: COLORS.border, borderRadius: 14, alignItems: 'center', justifyContent: 'center' }}
       >
         <ActivityIndicator size="small" color="#c4a040" />
       </View>
@@ -71,8 +70,7 @@ export function ExerciseGif({ exerciseDbId, nombre, size = 120 }: ExerciseGifPro
 
   return (
     <View
-      style={{ width: size, height: size }}
-      className="rounded-xl overflow-hidden border border-border"
+      style={{ width: size, height: size, borderRadius: 14, overflow: 'hidden', borderWidth: 1, borderColor: COLORS.border }}
     >
       {gifUrl ? (
         <Image
@@ -81,8 +79,8 @@ export function ExerciseGif({ exerciseDbId, nombre, size = 120 }: ExerciseGifPro
           resizeMode="cover"
         />
       ) : (
-        <View className="flex-1 bg-border items-center justify-center">
-          <Text className="text-text font-mono text-xs text-center px-2" numberOfLines={2}>
+        <View style={{ flex: 1, backgroundColor: COLORS.border, alignItems: 'center', justifyContent: 'center' }}>
+          <Text style={{ fontFamily: FONTS.mono, fontSize: 12, color: COLORS.text, textAlign: 'center', paddingHorizontal: 8 }} numberOfLines={2}>
             {nombre}
           </Text>
         </View>

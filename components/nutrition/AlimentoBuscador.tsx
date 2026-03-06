@@ -7,6 +7,7 @@ import React, { useState, useCallback } from 'react';
 import { View, Text, FlatList, TouchableOpacity, ActivityIndicator } from 'react-native';
 import { Input } from '@/components/ui/Input';
 import { buscarAlimento } from '@/lib/openFoodFacts';
+import { COLORS, FONTS } from '@/constants/theme';
 import type { OpenFoodFactsProduct } from '@/types/nutrition.types';
 
 interface AlimentoBuscadorProps {
@@ -43,19 +44,19 @@ export function AlimentoBuscador({ onSelect, onClose }: AlimentoBuscadorProps) {
       return (
         <TouchableOpacity
           onPress={() => onSelect(item, cantidad)}
-          className="bg-bg border border-border rounded-lg p-3 mb-2"
+          style={{ backgroundColor: COLORS.bg, borderWidth: 1, borderColor: COLORS.border, borderRadius: 10, padding: 12, marginBottom: 8 }}
           activeOpacity={0.7}
         >
-          <Text className="text-white font-barlow-medium text-base" numberOfLines={1}>
+          <Text style={{ fontFamily: FONTS.bodyBold, fontSize: 16, color: COLORS.white }} numberOfLines={1}>
             {item.product_name}
           </Text>
-          <View className="flex-row gap-3 mt-1">
-            <Text className="text-accent font-mono text-xs">{kcal} kcal</Text>
-            <Text className="text-blue font-mono text-xs">P: {prot}g</Text>
-            <Text className="text-text font-mono text-xs">
+          <View style={{ flexDirection: 'row', gap: 12, marginTop: 4 }}>
+            <Text style={{ fontFamily: FONTS.mono, fontSize: 12, color: COLORS.accent }}>{kcal} kcal</Text>
+            <Text style={{ fontFamily: FONTS.mono, fontSize: 12, color: '#2a7a9a' }}>P: {prot}g</Text>
+            <Text style={{ fontFamily: FONTS.mono, fontSize: 12, color: COLORS.text }}>
               C: {Math.round(item.nutriments.carbohydrates_100g * factor)}g
             </Text>
-            <Text className="text-text font-mono text-xs">
+            <Text style={{ fontFamily: FONTS.mono, fontSize: 12, color: COLORS.text }}>
               G: {Math.round(item.nutriments.fat_100g * factor)}g
             </Text>
           </View>
@@ -66,9 +67,9 @@ export function AlimentoBuscador({ onSelect, onClose }: AlimentoBuscadorProps) {
   );
 
   return (
-    <View className="gap-3">
-      <View className="flex-row gap-2">
-        <View className="flex-1">
+    <View style={{ gap: 12 }}>
+      <View style={{ flexDirection: 'row', gap: 8 }}>
+        <View style={{ flex: 1 }}>
           <Input
             placeholder="Buscar alimento..."
             value={query}
@@ -77,7 +78,7 @@ export function AlimentoBuscador({ onSelect, onClose }: AlimentoBuscadorProps) {
             returnKeyType="search"
           />
         </View>
-        <View className="w-20">
+        <View style={{ width: 80 }}>
           <Input
             placeholder="100"
             value={cantidadG}
@@ -89,7 +90,7 @@ export function AlimentoBuscador({ onSelect, onClose }: AlimentoBuscadorProps) {
       </View>
 
       {loading && (
-        <ActivityIndicator size="small" color="#c4a040" className="my-4" />
+        <ActivityIndicator size="small" color="#c4a040" style={{ marginVertical: 16 }} />
       )}
 
       <FlatList
@@ -99,7 +100,7 @@ export function AlimentoBuscador({ onSelect, onClose }: AlimentoBuscadorProps) {
         contentContainerStyle={{ paddingBottom: 16 }}
         ListEmptyComponent={
           !loading && query.length > 0 ? (
-            <Text className="text-text font-barlow text-center py-4">
+            <Text style={{ fontFamily: FONTS.body, fontSize: 14, color: COLORS.text, textAlign: 'center', paddingVertical: 16 }}>
               Sin resultados
             </Text>
           ) : null

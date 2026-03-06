@@ -43,11 +43,11 @@ export default function DashboardScreen() {
 
   return (
     <ScrollView
-      className="flex-1 bg-bg"
+      style={{ flex: 1, backgroundColor: COLORS.bg }}
       contentContainerStyle={{ padding: 16, paddingTop: 60, paddingBottom: 32 }}
     >
       {/* Header */}
-      <View className="flex-row items-end justify-between">
+      <View style={{ flexDirection: 'row', alignItems: 'flex-end', justifyContent: 'space-between' }}>
         <View>
           <Text style={{ fontFamily: FONTS.title, fontSize: 36, color: COLORS.accent }}>
             FORGE
@@ -56,7 +56,7 @@ export default function DashboardScreen() {
             {profile?.nombre?.toUpperCase() || 'SOLDADO'} — SEMANA {profile?.semana_programa || 1}
           </Text>
         </View>
-        <View className="items-end">
+        <View style={{ alignItems: 'flex-end' }}>
           <Text style={{ fontFamily: FONTS.mono, fontSize: 9, color: COLORS.olive }}>
             {faseLabel[profile?.fase_actual || 'FASE_1'] || 'FASE 1'}
           </Text>
@@ -84,59 +84,69 @@ export default function DashboardScreen() {
       />
 
       {/* Quick stats row */}
-      <View className="flex-row gap-3 mt-4">
+      <View style={{ flexDirection: 'row', gap: 12, marginTop: 16 }}>
         {/* Hábitos */}
-        <Card className="flex-1">
-          <Text style={{ fontFamily: FONTS.mono, fontSize: 9, color: COLORS.accent }}>
-            DISCIPLINA
-          </Text>
-          <Text style={{ fontFamily: FONTS.title, fontSize: 28, color: COLORS.text, marginTop: 4 }}>
-            {Math.round(progresoHabitos * 100)}%
-          </Text>
-          <ProgressBar progress={progresoHabitos} className="mt-2" />
-        </Card>
+        <View style={{ flex: 1 }}>
+          <Card>
+            <Text style={{ fontFamily: FONTS.mono, fontSize: 9, color: COLORS.accent }}>
+              DISCIPLINA
+            </Text>
+            <Text style={{ fontFamily: FONTS.title, fontSize: 28, color: COLORS.text, marginTop: 4 }}>
+              {Math.round(progresoHabitos * 100)}%
+            </Text>
+            <View style={{ marginTop: 8 }}>
+              <ProgressBar progress={progresoHabitos} />
+            </View>
+          </Card>
+        </View>
 
         {/* Nutrición */}
-        <Card className="flex-1">
-          <Text style={{ fontFamily: FONTS.mono, fontSize: 9, color: COLORS.accent }}>
-            RACIÓN
-          </Text>
-          <Text style={{ fontFamily: FONTS.title, fontSize: 28, color: COLORS.text, marginTop: 4 }}>
-            {consumido.calorias}
-          </Text>
-          <Text style={{ fontFamily: FONTS.mono, fontSize: 9, color: COLORS.textB }}>
-            /{objetivos.calorias} kcal
-          </Text>
-          <ProgressBar progress={progresoCalorias} className="mt-2" />
-        </Card>
+        <View style={{ flex: 1 }}>
+          <Card>
+            <Text style={{ fontFamily: FONTS.mono, fontSize: 9, color: COLORS.accent }}>
+              RACIÓN
+            </Text>
+            <Text style={{ fontFamily: FONTS.title, fontSize: 28, color: COLORS.text, marginTop: 4 }}>
+              {consumido.calorias}
+            </Text>
+            <Text style={{ fontFamily: FONTS.mono, fontSize: 9, color: COLORS.textB }}>
+              /{objetivos.calorias} kcal
+            </Text>
+            <View style={{ marginTop: 8 }}>
+              <ProgressBar progress={progresoCalorias} />
+            </View>
+          </Card>
+        </View>
       </View>
 
       {/* Rachas */}
       {rachasActivas.length > 0 && (
-        <Card className="mt-4">
-          <Text style={{ fontFamily: FONTS.mono, fontSize: 9, color: COLORS.accent, marginBottom: 8 }}>
-            RACHAS ACTIVAS
-          </Text>
-          <View className="flex-row flex-wrap gap-3">
-            {rachasActivas.map((racha) => (
-              <View key={racha.id} className="items-center">
-                <Text style={{ fontFamily: FONTS.title, fontSize: 24, color: COLORS.accent }}>
-                  {racha.racha_actual_dias}
-                </Text>
-                <Text style={{ fontFamily: FONTS.mono, fontSize: 8, color: COLORS.textB }}>
-                  {String(racha.tipo).toUpperCase()}
-                </Text>
-              </View>
-            ))}
-          </View>
-        </Card>
+        <View style={{ marginTop: 16 }}>
+          <Card>
+            <Text style={{ fontFamily: FONTS.mono, fontSize: 9, color: COLORS.accent, marginBottom: 8 }}>
+              RACHAS ACTIVAS
+            </Text>
+            <View style={{ flexDirection: 'row', flexWrap: 'wrap', gap: 12 }}>
+              {rachasActivas.map((racha) => (
+                <View key={racha.id} style={{ alignItems: 'center' }}>
+                  <Text style={{ fontFamily: FONTS.title, fontSize: 24, color: COLORS.accent }}>
+                    {racha.racha_actual_dias}
+                  </Text>
+                  <Text style={{ fontFamily: FONTS.mono, fontSize: 8, color: COLORS.textB }}>
+                    {String(racha.tipo).toUpperCase()}
+                  </Text>
+                </View>
+              ))}
+            </View>
+          </Card>
+        </View>
       )}
 
       {/* Band data */}
       {bandData && <BandStats data={bandData} available={bandAvailable} />}
 
       {/* Quick actions */}
-      <View className="gap-3 mt-6">
+      <View style={{ gap: 12, marginTop: 24 }}>
         <Button
           title="📝 CHECK-IN NOCTURNO"
           variant="outline"

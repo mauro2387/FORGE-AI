@@ -63,7 +63,7 @@ export default function NutricionScreen() {
 
   return (
     <ScrollView
-      className="flex-1 bg-bg"
+      style={{ flex: 1, backgroundColor: COLORS.bg }}
       contentContainerStyle={{ padding: 16, paddingTop: 60 }}
     >
       {/* Header */}
@@ -81,7 +81,7 @@ export default function NutricionScreen() {
       />
 
       {/* Macros */}
-      <View className="flex-row justify-around mt-4">
+      <View style={{ flexDirection: 'row', justifyContent: 'space-around', marginTop: 16 }}>
         <MacroRing
           label="PROT"
           consumido={consumido.proteina_g}
@@ -103,15 +103,15 @@ export default function NutricionScreen() {
       </View>
 
       {/* Meal slots */}
-      <View className="mt-6 gap-4">
+      <View style={{ marginTop: 24, gap: 16 }}>
         {MEAL_SLOTS.map(({ key, label, emoji }) => {
           const comidas = getComidasDelSlot(key);
           const calSlot = comidas.reduce((s, c) => s + c.calorias_total, 0);
 
           return (
             <Card key={key}>
-              <View className="flex-row items-center justify-between mb-2">
-                <View className="flex-row items-center gap-2">
+              <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', marginBottom: 8 }}>
+                <View style={{ flexDirection: 'row', alignItems: 'center', gap: 8 }}>
                   <Text style={{ fontSize: 18 }}>{emoji}</Text>
                   <Text style={{ fontFamily: FONTS.mono, fontSize: 12, color: COLORS.accent }}>
                     {label}
@@ -135,7 +135,14 @@ export default function NutricionScreen() {
                   setActiveSlot(key);
                   setBuscadorVisible(true);
                 }}
-                className="mt-2 p-2 rounded border border-border items-center"
+                style={{
+                  marginTop: 8,
+                  padding: 8,
+                  borderRadius: 8,
+                  borderWidth: 1,
+                  borderColor: COLORS.border,
+                  alignItems: 'center',
+                }}
               >
                 <Text style={{ fontFamily: FONTS.mono, fontSize: 11, color: COLORS.textB }}>
                   + AGREGAR ALIMENTO
@@ -148,7 +155,7 @@ export default function NutricionScreen() {
 
       {/* Buscador modal inline */}
       {buscadorVisible && (
-        <View className="mt-4">
+        <View style={{ marginTop: 16 }}>
           <AlimentoBuscador
             onSelect={handleAgregarAlimento}
             onClose={() => setBuscadorVisible(false)}
@@ -156,7 +163,7 @@ export default function NutricionScreen() {
         </View>
       )}
 
-      <View className="h-8" />
+      <View style={{ height: 32 }} />
     </ScrollView>
   );
 }

@@ -8,6 +8,7 @@ import { View, Text, TouchableOpacity } from 'react-native';
 import { Card } from '@/components/ui/Card';
 import { Badge } from '@/components/ui/Badge';
 import { ExerciseGif } from './ExerciseGif';
+import { COLORS, FONTS } from '@/constants/theme';
 import type { EjercicioPlan } from '@/types/workout.types';
 
 export interface EjercicioCardProps {
@@ -31,52 +32,52 @@ export function EjercicioCard({
   return (
     <TouchableOpacity onPress={onPress} activeOpacity={onPress ? 0.7 : 1} disabled={!onPress}>
       <Card
-        className={`
-          ${isActual ? 'border-accent' : ''}
-          ${completado ? 'opacity-60' : ''}
-        `}
+        style={{
+          ...(isActual ? { borderColor: COLORS.accent } : {}),
+          ...(completado ? { opacity: 0.6 } : {}),
+        }}
       >
-        <View className="flex-row gap-3">
+        <View style={{ flexDirection: 'row', gap: 12 }}>
           <ExerciseGif
             exerciseDbId={ejercicio.exercise_db_id}
             nombre={ejercicio.nombre}
             size={80}
           />
 
-          <View className="flex-1 gap-1">
-            <View className="flex-row items-center gap-2">
-              <Text className="text-text font-mono text-xs">
+          <View style={{ flex: 1, gap: 4 }}>
+            <View style={{ flexDirection: 'row', alignItems: 'center', gap: 8 }}>
+              <Text style={{ fontFamily: FONTS.mono, fontSize: 12, color: COLORS.text }}>
                 #{index + 1}
               </Text>
               {completado && <Badge label="✓" variant="olive" />}
               {isActual && !completado && <Badge label="ACTIVO" variant="accent" />}
             </View>
 
-            <Text className="text-white font-barlow-bold text-lg">
+            <Text style={{ fontFamily: FONTS.bodyBold, fontSize: 18, color: COLORS.white }}>
               {ejercicio.nombre}
             </Text>
 
-            <View className="flex-row gap-3">
-              <Text className="text-accent font-mono text-sm">
+            <View style={{ flexDirection: 'row', gap: 12 }}>
+              <Text style={{ fontFamily: FONTS.mono, fontSize: 14, color: COLORS.accent }}>
                 {ejercicio.series}×{ejercicio.reps}
               </Text>
               {ejercicio.peso_kg !== null && (
-                <Text className="text-text-b font-mono text-sm">
+                <Text style={{ fontFamily: FONTS.mono, fontSize: 14, color: COLORS.textB }}>
                   {ejercicio.peso_kg}kg
                 </Text>
               )}
               {ejercicio.es_isometrico && ejercicio.tiempo_seg && (
-                <Text className="text-blue font-mono text-sm">
+                <Text style={{ fontFamily: FONTS.mono, fontSize: 14, color: '#2a7a9a' }}>
                   {ejercicio.tiempo_seg}s
                 </Text>
               )}
-              <Text className="text-text font-mono text-sm">
+              <Text style={{ fontFamily: FONTS.mono, fontSize: 14, color: COLORS.text }}>
                 ⏱ {ejercicio.descanso_seg}s rest
               </Text>
             </View>
 
             {ejercicio.notas && (
-              <Text className="text-text font-barlow text-sm mt-1" numberOfLines={2}>
+              <Text style={{ fontFamily: FONTS.body, fontSize: 14, color: COLORS.text, marginTop: 4 }} numberOfLines={2}>
                 {ejercicio.notas}
               </Text>
             )}

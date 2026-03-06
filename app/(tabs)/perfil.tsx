@@ -31,7 +31,7 @@ export default function PerfilScreen() {
 
   if (!profile) {
     return (
-      <View className="flex-1 bg-bg items-center justify-center">
+      <View style={{ flex: 1, backgroundColor: COLORS.bg, alignItems: 'center', justifyContent: 'center' }}>
         <Text style={{ fontFamily: FONTS.body, color: COLORS.textB }}>Cargando perfil...</Text>
       </View>
     );
@@ -48,11 +48,11 @@ export default function PerfilScreen() {
 
   return (
     <ScrollView
-      className="flex-1 bg-bg"
+      style={{ flex: 1, backgroundColor: COLORS.bg }}
       contentContainerStyle={{ padding: 16, paddingTop: 60, paddingBottom: 32 }}
     >
       {/* Header */}
-      <View className="items-center">
+      <View style={{ alignItems: 'center' }}>
         <Avatar name={profile.nombre} size={80} />
         <Text
           style={{
@@ -70,130 +70,157 @@ export default function PerfilScreen() {
       </View>
 
       {/* Stats */}
-      <View className="flex-row gap-3 mt-6">
-        <Card className="flex-1 items-center">
-          <Text style={{ fontFamily: FONTS.mono, fontSize: 9, color: COLORS.accent }}>PESO</Text>
-          <Text style={{ fontFamily: FONTS.title, fontSize: 28, color: COLORS.text }}>
-            {profile.peso_actual}
-          </Text>
-          <Text style={{ fontFamily: FONTS.mono, fontSize: 9, color: COLORS.textB }}>
-            kg → {profile.peso_objetivo}kg
-          </Text>
-        </Card>
+      <View style={{ flexDirection: 'row', gap: 12, marginTop: 24 }}>
+        <View style={{ flex: 1, alignItems: 'center' }}>
+          <Card>
+            <View style={{ alignItems: 'center' }}>
+              <Text style={{ fontFamily: FONTS.mono, fontSize: 9, color: COLORS.accent }}>PESO</Text>
+              <Text style={{ fontFamily: FONTS.title, fontSize: 28, color: COLORS.text }}>
+                {profile.peso_actual}
+              </Text>
+              <Text style={{ fontFamily: FONTS.mono, fontSize: 9, color: COLORS.textB }}>
+                kg → {profile.peso_objetivo}kg
+              </Text>
+            </View>
+          </Card>
+        </View>
 
-        <Card className="flex-1 items-center">
-          <Text style={{ fontFamily: FONTS.mono, fontSize: 9, color: COLORS.accent }}>ALTURA</Text>
-          <Text style={{ fontFamily: FONTS.title, fontSize: 28, color: COLORS.text }}>
-            {profile.altura}
-          </Text>
-          <Text style={{ fontFamily: FONTS.mono, fontSize: 9, color: COLORS.textB }}>cm</Text>
-        </Card>
+        <View style={{ flex: 1, alignItems: 'center' }}>
+          <Card>
+            <View style={{ alignItems: 'center' }}>
+              <Text style={{ fontFamily: FONTS.mono, fontSize: 9, color: COLORS.accent }}>ALTURA</Text>
+              <Text style={{ fontFamily: FONTS.title, fontSize: 28, color: COLORS.text }}>
+                {profile.altura}
+              </Text>
+              <Text style={{ fontFamily: FONTS.mono, fontSize: 9, color: COLORS.textB }}>cm</Text>
+            </View>
+          </Card>
+        </View>
 
-        <Card className="flex-1 items-center">
-          <Text style={{ fontFamily: FONTS.mono, fontSize: 9, color: COLORS.accent }}>EDAD</Text>
-          <Text style={{ fontFamily: FONTS.title, fontSize: 28, color: COLORS.text }}>
-            {profile.edad}
-          </Text>
-          <Text style={{ fontFamily: FONTS.mono, fontSize: 9, color: COLORS.textB }}>años</Text>
-        </Card>
+        <View style={{ flex: 1, alignItems: 'center' }}>
+          <Card>
+            <View style={{ alignItems: 'center' }}>
+              <Text style={{ fontFamily: FONTS.mono, fontSize: 9, color: COLORS.accent }}>EDAD</Text>
+              <Text style={{ fontFamily: FONTS.title, fontSize: 28, color: COLORS.text }}>
+                {profile.edad}
+              </Text>
+              <Text style={{ fontFamily: FONTS.mono, fontSize: 9, color: COLORS.textB }}>años</Text>
+            </View>
+          </Card>
+        </View>
       </View>
 
       {/* Macros */}
-      <Card className="mt-4">
-        <Text style={{ fontFamily: FONTS.mono, fontSize: 10, color: COLORS.accent, marginBottom: 8 }}>
-          OBJETIVOS NUTRICIONALES
-        </Text>
-        <View className="flex-row justify-between">
-          <View className="items-center">
-            <Text style={{ fontFamily: FONTS.title, fontSize: 22, color: COLORS.text }}>
-              {profile.calorias_objetivo}
-            </Text>
-            <Text style={{ fontFamily: FONTS.mono, fontSize: 8, color: COLORS.textB }}>KCAL</Text>
+      <View style={{ marginTop: 16 }}>
+        <Card>
+          <Text style={{ fontFamily: FONTS.mono, fontSize: 10, color: COLORS.accent, marginBottom: 8 }}>
+            OBJETIVOS NUTRICIONALES
+          </Text>
+          <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
+            <View style={{ alignItems: 'center' }}>
+              <Text style={{ fontFamily: FONTS.title, fontSize: 22, color: COLORS.text }}>
+                {profile.calorias_objetivo}
+              </Text>
+              <Text style={{ fontFamily: FONTS.mono, fontSize: 8, color: COLORS.textB }}>KCAL</Text>
+            </View>
+            <View style={{ alignItems: 'center' }}>
+              <Text style={{ fontFamily: FONTS.title, fontSize: 22, color: COLORS.accent }}>
+                {profile.proteina_g}g
+              </Text>
+              <Text style={{ fontFamily: FONTS.mono, fontSize: 8, color: COLORS.textB }}>PROT</Text>
+            </View>
+            <View style={{ alignItems: 'center' }}>
+              <Text style={{ fontFamily: FONTS.title, fontSize: 22, color: COLORS.olive }}>
+                {profile.carbos_g}g
+              </Text>
+              <Text style={{ fontFamily: FONTS.mono, fontSize: 8, color: COLORS.textB }}>CARBS</Text>
+            </View>
+            <View style={{ alignItems: 'center' }}>
+              <Text style={{ fontFamily: FONTS.title, fontSize: 22, color: COLORS.textB }}>
+                {profile.grasas_g}g
+              </Text>
+              <Text style={{ fontFamily: FONTS.mono, fontSize: 8, color: COLORS.textB }}>GRASAS</Text>
+            </View>
           </View>
-          <View className="items-center">
-            <Text style={{ fontFamily: FONTS.title, fontSize: 22, color: COLORS.accent }}>
-              {profile.proteina_g}g
-            </Text>
-            <Text style={{ fontFamily: FONTS.mono, fontSize: 8, color: COLORS.textB }}>PROT</Text>
-          </View>
-          <View className="items-center">
-            <Text style={{ fontFamily: FONTS.title, fontSize: 22, color: COLORS.olive }}>
-              {profile.carbos_g}g
-            </Text>
-            <Text style={{ fontFamily: FONTS.mono, fontSize: 8, color: COLORS.textB }}>CARBS</Text>
-          </View>
-          <View className="items-center">
-            <Text style={{ fontFamily: FONTS.title, fontSize: 22, color: COLORS.textB }}>
-              {profile.grasas_g}g
-            </Text>
-            <Text style={{ fontFamily: FONTS.mono, fontSize: 8, color: COLORS.textB }}>GRASAS</Text>
-          </View>
-        </View>
-      </Card>
+        </Card>
+      </View>
 
       {/* Análisis físico */}
       {profile.analisis_fisico && (
-        <Card className="mt-4">
-          <Text style={{ fontFamily: FONTS.mono, fontSize: 10, color: COLORS.accent, marginBottom: 8 }}>
-            ANÁLISIS FÍSICO
-          </Text>
-          <Text style={{ fontFamily: FONTS.body, fontSize: 13, color: COLORS.text }}>
-            Nivel: {profile.analisis_fisico.nivel_fitness}
-          </Text>
-          <Text
-            style={{
-              fontFamily: FONTS.body,
-              fontSize: 13,
-              color: COLORS.textB,
-              marginTop: 4,
-            }}
-          >
-            Grasa estimada: {profile.analisis_fisico.estimacion_grasa_corporal}%
-          </Text>
-          <Text
-            style={{
-              fontFamily: FONTS.body,
-              fontSize: 12,
-              color: COLORS.olive,
-              marginTop: 8,
-            }}
-          >
-            {profile.analisis_fisico.plan_resumen}
-          </Text>
-        </Card>
+        <View style={{ marginTop: 16 }}>
+          <Card>
+            <Text style={{ fontFamily: FONTS.mono, fontSize: 10, color: COLORS.accent, marginBottom: 8 }}>
+              ANÁLISIS FÍSICO
+            </Text>
+            <Text style={{ fontFamily: FONTS.body, fontSize: 13, color: COLORS.text }}>
+              Nivel: {profile.analisis_fisico.nivel_fitness}
+            </Text>
+            <Text
+              style={{
+                fontFamily: FONTS.body,
+                fontSize: 13,
+                color: COLORS.textB,
+                marginTop: 4,
+              }}
+            >
+              Grasa estimada: {profile.analisis_fisico.estimacion_grasa_corporal}%
+            </Text>
+            <Text
+              style={{
+                fontFamily: FONTS.body,
+                fontSize: 12,
+                color: COLORS.olive,
+                marginTop: 8,
+              }}
+            >
+              {profile.analisis_fisico.plan_resumen}
+            </Text>
+          </Card>
+        </View>
       )}
 
       {/* Gym mode toggle */}
-      <Card className="mt-4">
-        <View className="flex-row items-center justify-between">
-          <View className="flex-1">
-            <Text style={{ fontFamily: FONTS.mono, fontSize: 10, color: COLORS.accent }}>
-              MODO GYM
-            </Text>
-            <Text style={{ fontFamily: FONTS.body, fontSize: 12, color: COLORS.textB, marginTop: 2 }}>
-              Activa ejercicios con pesas y máquinas
-            </Text>
+      <View style={{ marginTop: 16 }}>
+        <Card>
+          <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between' }}>
+            <View style={{ flex: 1 }}>
+              <Text style={{ fontFamily: FONTS.mono, fontSize: 10, color: COLORS.accent }}>
+                MODO GYM
+              </Text>
+              <Text style={{ fontFamily: FONTS.body, fontSize: 12, color: COLORS.textB, marginTop: 2 }}>
+                Activa ejercicios con pesas y máquinas
+              </Text>
+            </View>
+            <Switch
+              value={profile.tiene_gym}
+              onValueChange={(value) => updateProfile({ tiene_gym: value })}
+              trackColor={{ false: COLORS.border, true: COLORS.olive }}
+              thumbColor={profile.tiene_gym ? COLORS.accent : COLORS.textB}
+            />
           </View>
-          <Switch
-            value={profile.tiene_gym}
-            onValueChange={(value) => updateProfile({ tiene_gym: value })}
-            trackColor={{ false: COLORS.border, true: COLORS.olive }}
-            thumbColor={profile.tiene_gym ? COLORS.accent : COLORS.textB}
-          />
-        </View>
-      </Card>
+        </Card>
+      </View>
 
       {/* Fotos de progreso */}
       {fotos.length > 0 && (
-        <View className="mt-6">
+        <View style={{ marginTop: 24 }}>
           <Text style={{ fontFamily: FONTS.mono, fontSize: 10, color: COLORS.accent, marginBottom: 8 }}>
             FOTOS DE PROGRESO
           </Text>
           <ScrollView horizontal showsHorizontalScrollIndicator={false}>
-            <View className="flex-row gap-3">
+            <View style={{ flexDirection: 'row', gap: 12 }}>
               {fotos.map((foto, idx) => (
-                <View key={idx} className="items-center">
-                  <View className="rounded-lg bg-bg2 border border-border w-24 h-32 items-center justify-center">
+                <View key={idx} style={{ alignItems: 'center' }}>
+                  <View style={{
+                    borderRadius: 10,
+                    backgroundColor: '#0c0e12',
+                    borderWidth: 1,
+                    borderColor: COLORS.border,
+                    width: 96,
+                    height: 128,
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                  }}>
                     <Text style={{ fontFamily: FONTS.mono, fontSize: 9, color: COLORS.textB }}>
                       S{foto.semana_numero as number}
                     </Text>
@@ -207,7 +234,7 @@ export default function PerfilScreen() {
       )}
 
       {/* Actions */}
-      <View className="gap-3 mt-8">
+      <View style={{ gap: 12, marginTop: 32 }}>
         <Button
           title="📸 FOTO SEMANAL"
           variant="outline"

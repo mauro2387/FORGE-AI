@@ -40,7 +40,7 @@ export default function StepFotos() {
 
   return (
     <ScrollView
-      className="flex-1 bg-bg"
+      style={{ flex: 1, backgroundColor: COLORS.bg }}
       contentContainerStyle={{ padding: 24, paddingTop: 60 }}
     >
       <ProgressBar progress={6 / 7} />
@@ -48,7 +48,7 @@ export default function StepFotos() {
       <Text style={{ fontFamily: FONTS.title, fontSize: 32, color: COLORS.accent, marginTop: 24 }}>
         FOTOS DÍA 1
       </Text>
-      <Text style={{ fontFamily: FONTS.mono, fontSize: 11, color: COLORS.textB, marginTop: 4 }}>
+      <Text style={{ fontFamily: FONTS.mono, fontSize: 11, color: COLORS.text, marginTop: 4, letterSpacing: 1 }}>
         PASO 6/7 — REGISTRO VISUAL INICIAL
       </Text>
       <Text style={{ fontFamily: FONTS.body, fontSize: 13, color: COLORS.textB, marginTop: 8 }}>
@@ -56,16 +56,19 @@ export default function StepFotos() {
         Son privadas — solo vos las ves. Es opcional pero muy recomendado.
       </Text>
 
-      <View className="gap-4 mt-8">
+      <View style={{ gap: 16, marginTop: 32 }}>
         {TIPOS_FOTO.map(({ tipo, label, emoji }) => {
           const foto = getFoto(tipo);
           return (
             <Pressable
               key={tipo}
               onPress={() => tomarFoto(tipo)}
-              className={`rounded-xl border overflow-hidden ${
-                foto ? 'border-accent' : 'border-border'
-              }`}
+              style={{
+                borderRadius: 14,
+                borderWidth: 1,
+                overflow: 'hidden',
+                borderColor: foto ? COLORS.accent : COLORS.border,
+              }}
             >
               {foto ? (
                 <View>
@@ -74,14 +77,14 @@ export default function StepFotos() {
                     style={{ width: '100%', height: 200 }}
                     resizeMode="cover"
                   />
-                  <View className="absolute top-2 right-2 bg-bg/80 px-2 py-1 rounded">
+                  <View style={{ position: 'absolute', top: 8, right: 8, backgroundColor: 'rgba(6,7,8,0.8)', paddingHorizontal: 8, paddingVertical: 4, borderRadius: 6 }}>
                     <Text style={{ fontFamily: FONTS.mono, fontSize: 10, color: COLORS.accent }}>
                       ✓ {label}
                     </Text>
                   </View>
                   <Pressable
                     onPress={() => removeFoto(tipo)}
-                    className="absolute bottom-2 right-2 bg-danger px-3 py-1 rounded"
+                    style={{ position: 'absolute', bottom: 8, right: 8, backgroundColor: '#ef4444', paddingHorizontal: 12, paddingVertical: 4, borderRadius: 6 }}
                   >
                     <Text style={{ fontFamily: FONTS.mono, fontSize: 10, color: '#fff' }}>
                       BORRAR
@@ -89,7 +92,7 @@ export default function StepFotos() {
                   </Pressable>
                 </View>
               ) : (
-                <View className="items-center justify-center p-8">
+                <View style={{ alignItems: 'center', justifyContent: 'center', padding: 32 }}>
                   <Text style={{ fontSize: 40 }}>{emoji}</Text>
                   <Text
                     style={{
@@ -105,7 +108,7 @@ export default function StepFotos() {
                     style={{
                       fontFamily: FONTS.mono,
                       fontSize: 10,
-                      color: COLORS.textB,
+                      color: COLORS.text,
                       marginTop: 4,
                     }}
                   >
@@ -118,19 +121,21 @@ export default function StepFotos() {
         })}
       </View>
 
-      <View className="flex-row gap-3 mt-8">
-        <Button
-          title="← ATRÁS"
-          onPress={() => router.back()}
-          variant="outline"
-          className="flex-1"
-        />
-        <Button
-          title="INICIAR FORGE →"
-          onPress={() => router.push('/(onboarding)/step-procesando')}
-          variant="primary"
-          className="flex-1"
-        />
+      <View style={{ flexDirection: 'row', gap: 12, marginTop: 32 }}>
+        <View style={{ flex: 1 }}>
+          <Button
+            title="← ATRÁS"
+            onPress={() => router.back()}
+            variant="outline"
+          />
+        </View>
+        <View style={{ flex: 1 }}>
+          <Button
+            title="INICIAR FORGE →"
+            onPress={() => router.push('/(onboarding)/step-procesando')}
+            variant="primary"
+          />
+        </View>
       </View>
     </ScrollView>
   );

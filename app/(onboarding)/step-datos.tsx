@@ -4,7 +4,7 @@ import { useOnboardingStore } from '@/stores/onboardingStore';
 import { Button } from '@/components/ui/Button';
 import { Input } from '@/components/ui/Input';
 import { ProgressBar } from '@/components/ui/ProgressBar';
-import { FONTS } from '@/constants/theme';
+import { FONTS, COLORS } from '@/constants/theme';
 
 export default function StepDatos() {
   const { data, setField } = useOnboardingStore();
@@ -18,7 +18,7 @@ export default function StepDatos() {
 
   return (
     <KeyboardAvoidingView
-      className="flex-1 bg-bg"
+      style={{ flex: 1, backgroundColor: COLORS.bg }}
       behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
     >
       <ScrollView
@@ -27,14 +27,14 @@ export default function StepDatos() {
       >
         <ProgressBar progress={1 / 7} />
 
-        <Text style={{ fontFamily: FONTS.title, fontSize: 32, color: '#c4a040', marginTop: 24 }}>
+        <Text style={{ fontFamily: FONTS.title, fontSize: 32, color: COLORS.accent, marginTop: 24 }}>
           DATOS BÁSICOS
         </Text>
-        <Text style={{ fontFamily: FONTS.mono, fontSize: 11, color: '#6b7b6e', marginTop: 4 }}>
+        <Text style={{ fontFamily: FONTS.mono, fontSize: 11, color: COLORS.text, marginTop: 4, letterSpacing: 1 }}>
           PASO 1/7 — IDENTIFICACIÓN DEL RECLUTA
         </Text>
 
-        <View className="gap-4 mt-8">
+        <View style={{ gap: 16, marginTop: 32 }}>
           <Input
             label="NOMBRE"
             value={data.nombre}
@@ -52,7 +52,7 @@ export default function StepDatos() {
           />
 
           <Input
-            label="PESO ACTUAL (kg)"
+            label="PESO ACTUAL (KG)"
             value={data.peso_actual > 0 ? String(data.peso_actual) : ''}
             onChangeText={(v) => setField('peso_actual', parseFloat(v) || 0)}
             placeholder="70"
@@ -60,7 +60,7 @@ export default function StepDatos() {
           />
 
           <Input
-            label="ALTURA (cm)"
+            label="ALTURA (CM)"
             value={data.altura > 0 ? String(data.altura) : ''}
             onChangeText={(v) => setField('altura', parseInt(v) || 0)}
             placeholder="175"
@@ -68,7 +68,7 @@ export default function StepDatos() {
           />
 
           <Input
-            label="PESO OBJETIVO (kg)"
+            label="PESO OBJETIVO (KG)"
             value={data.peso_objetivo > 0 ? String(data.peso_objetivo) : ''}
             onChangeText={(v) => setField('peso_objetivo', parseFloat(v) || 0)}
             placeholder="75"
@@ -76,13 +76,14 @@ export default function StepDatos() {
           />
         </View>
 
-        <Button
-          title="SIGUIENTE →"
-          onPress={() => router.push('/(onboarding)/step-historial')}
-          variant="primary"
-          disabled={!canContinue}
-          className="mt-8"
-        />
+        <View style={{ marginTop: 32 }}>
+          <Button
+            title="SIGUIENTE →"
+            onPress={() => router.push('/(onboarding)/step-historial')}
+            variant="primary"
+            disabled={!canContinue}
+          />
+        </View>
       </ScrollView>
     </KeyboardAvoidingView>
   );

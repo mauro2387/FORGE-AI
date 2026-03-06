@@ -24,11 +24,11 @@ export default function HabitosScreen() {
 
   return (
     <ScrollView
-      className="flex-1 bg-bg"
+      style={{ flex: 1, backgroundColor: COLORS.bg }}
       contentContainerStyle={{ padding: 16, paddingTop: 60 }}
     >
       {/* Header */}
-      <View className="flex-row items-end justify-between">
+      <View style={{ flexDirection: 'row', alignItems: 'flex-end', justifyContent: 'space-between' }}>
         <View>
           <Text style={{ fontFamily: FONTS.title, fontSize: 32, color: COLORS.accent }}>
             DISCIPLINA
@@ -42,10 +42,12 @@ export default function HabitosScreen() {
         </Text>
       </View>
 
-      <ProgressBar progress={progresoHabitos} className="mt-3" />
+      <View style={{ marginTop: 12 }}>
+        <ProgressBar progress={progresoHabitos} />
+      </View>
 
       {/* Hábitos */}
-      <View className="mt-6 gap-2">
+      <View style={{ marginTop: 24, gap: 8 }}>
         {habitosConEstado.map((habito) => (
           <HabitRow
             key={habito.nombre}
@@ -58,7 +60,7 @@ export default function HabitosScreen() {
 
       {/* Rachas de adicciones */}
       {rachasActivas.length > 0 && (
-        <View className="mt-8">
+        <View style={{ marginTop: 32 }}>
           <Text style={{ fontFamily: FONTS.title, fontSize: 24, color: COLORS.accent }}>
             RACHAS
           </Text>
@@ -66,7 +68,7 @@ export default function HabitosScreen() {
             ABSTINENCIA ACTIVA — MANTENÉ LA LÍNEA
           </Text>
 
-          <View className="gap-3 mt-4">
+          <View style={{ gap: 12, marginTop: 16 }}>
             {rachasActivas.map((racha) => (
               <RachaCard
                 key={racha.id}
@@ -79,17 +81,19 @@ export default function HabitosScreen() {
       )}
 
       {/* Mensaje motivacional */}
-      <Card className="mt-8 mb-8">
-        <Text style={{ fontFamily: FONTS.body, fontSize: 13, color: COLORS.olive, textAlign: 'center' }}>
-          {progresoHabitos >= 1
-            ? '🏆 MISIÓN CUMPLIDA. Todos los hábitos completados. Sos disciplina pura.'
-            : progresoHabitos >= 0.7
-            ? '⚡ Buen progreso. No aflojes ahora — la disciplina se forja en los últimos hábitos.'
-            : progresoHabitos >= 0.3
-            ? '🔥 Vas en camino. Cada hábito que completás te acerca a la versión que querés ser.'
-            : '💀 Recién arrancás. La diferencia entre vos y tu objetivo son estos hábitos.'}
-        </Text>
-      </Card>
+      <View style={{ marginTop: 32, marginBottom: 32 }}>
+        <Card>
+          <Text style={{ fontFamily: FONTS.body, fontSize: 13, color: COLORS.olive, textAlign: 'center' }}>
+            {progresoHabitos >= 1
+              ? '🏆 MISIÓN CUMPLIDA. Todos los hábitos completados. Sos disciplina pura.'
+              : progresoHabitos >= 0.7
+              ? '⚡ Buen progreso. No aflojes ahora — la disciplina se forja en los últimos hábitos.'
+              : progresoHabitos >= 0.3
+              ? '🔥 Vas en camino. Cada hábito que completás te acerca a la versión que querés ser.'
+              : '💀 Recién arrancás. La diferencia entre vos y tu objetivo son estos hábitos.'}
+          </Text>
+        </Card>
+      </View>
     </ScrollView>
   );
 }

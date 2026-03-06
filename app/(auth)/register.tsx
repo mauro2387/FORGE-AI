@@ -1,10 +1,10 @@
 import { useState } from 'react';
-import { View, Text, KeyboardAvoidingView, Platform, ScrollView, Alert } from 'react-native';
+import { View, Text, KeyboardAvoidingView, Platform, ScrollView, Alert, Pressable } from 'react-native';
 import { Link, router } from 'expo-router';
 import { supabase } from '@/lib/supabase';
 import { Button } from '@/components/ui/Button';
 import { Input } from '@/components/ui/Input';
-import { FONTS } from '@/constants/theme';
+import { FONTS, COLORS } from '@/constants/theme';
 
 export default function RegisterScreen() {
   const [email, setEmail] = useState('');
@@ -56,27 +56,23 @@ export default function RegisterScreen() {
 
   return (
     <KeyboardAvoidingView
-      className="flex-1 bg-bg"
+      style={{ flex: 1, backgroundColor: COLORS.bg }}
       behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
     >
       <ScrollView
         contentContainerStyle={{ flexGrow: 1, justifyContent: 'center', padding: 24 }}
         keyboardShouldPersistTaps="handled"
       >
-        <View className="items-center mb-12">
-          <Text
-            style={{ fontFamily: FONTS.title, fontSize: 56, color: '#c4a040' }}
-          >
+        <View style={{ alignItems: 'center', marginBottom: 48 }}>
+          <Text style={{ fontFamily: FONTS.title, fontSize: 64, color: COLORS.accent, letterSpacing: 4 }}>
             FORGE
           </Text>
-          <Text
-            style={{ fontFamily: FONTS.mono, fontSize: 12, color: '#6b7b6e', marginTop: 4 }}
-          >
+          <Text style={{ fontFamily: FONTS.mono, fontSize: 11, color: COLORS.text, marginTop: 4, letterSpacing: 2 }}>
             CREÁ TU CUENTA DE COMBATE
           </Text>
         </View>
 
-        <View className="gap-4">
+        <View style={{ gap: 16 }}>
           <Input
             label="EMAIL"
             value={email}
@@ -105,23 +101,26 @@ export default function RegisterScreen() {
             autoComplete="new-password"
           />
 
-          <Button
-            title="ENLISTARSE"
-            onPress={handleRegister}
-            loading={loading}
-            variant="primary"
-            className="mt-4"
-          />
+          <View style={{ marginTop: 8 }}>
+            <Button
+              title="ENLISTARSE"
+              onPress={handleRegister}
+              loading={loading}
+              variant="primary"
+            />
+          </View>
         </View>
 
-        <View className="flex-row items-center justify-center mt-8 gap-1">
-          <Text style={{ fontFamily: FONTS.body, color: '#6b7b6e', fontSize: 14 }}>
+        <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'center', marginTop: 32, gap: 6 }}>
+          <Text style={{ fontFamily: FONTS.body, color: COLORS.text, fontSize: 14 }}>
             ¿Ya tenés cuenta?
           </Text>
           <Link href="/(auth)/login" asChild>
-            <Text style={{ fontFamily: FONTS.body, color: '#c4a040', fontSize: 14 }}>
-              INGRESÁ
-            </Text>
+            <Pressable>
+              <Text style={{ fontFamily: FONTS.bodyBold, color: COLORS.accent, fontSize: 14 }}>
+                INGRESÁ
+              </Text>
+            </Pressable>
           </Link>
         </View>
       </ScrollView>

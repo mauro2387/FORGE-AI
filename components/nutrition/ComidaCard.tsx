@@ -6,6 +6,7 @@
 import React from 'react';
 import { View, Text, TouchableOpacity } from 'react-native';
 import { Card } from '@/components/ui/Card';
+import { COLORS, FONTS } from '@/constants/theme';
 import type { Comida } from '@/types/nutrition.types';
 
 interface ComidaCardProps {
@@ -18,37 +19,37 @@ export function ComidaCard({ comida, onPress, onDelete }: ComidaCardProps) {
   return (
     <TouchableOpacity onPress={onPress} activeOpacity={0.7} disabled={!onPress}>
       <Card>
-        <View className="flex-row items-center justify-between">
-          <View className="flex-1">
-            <View className="flex-row items-center gap-2">
-              <Text className="text-text font-mono text-xs uppercase">
+        <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between' }}>
+          <View style={{ flex: 1 }}>
+            <View style={{ flexDirection: 'row', alignItems: 'center', gap: 8 }}>
+              <Text style={{ fontFamily: FONTS.mono, fontSize: 12, color: COLORS.text, textTransform: 'uppercase' }}>
                 {comida.tipo_comida}
               </Text>
               {comida.del_plan && (
-                <Text className="text-olive-l font-mono text-xs">DEL PLAN</Text>
+                <Text style={{ fontFamily: FONTS.mono, fontSize: 12, color: '#587050' }}>DEL PLAN</Text>
               )}
             </View>
-            <Text className="text-white font-barlow-medium text-base mt-1">
+            <Text style={{ fontFamily: FONTS.bodyBold, fontSize: 16, color: COLORS.white, marginTop: 4 }}>
               {comida.nombre}
             </Text>
           </View>
 
-          <View className="items-end">
-            <Text className="text-accent font-bebas text-xl">
+          <View style={{ alignItems: 'flex-end' }}>
+            <Text style={{ fontFamily: FONTS.title, fontSize: 20, color: COLORS.accent }}>
               {Math.round(comida.calorias_total)}
             </Text>
-            <Text className="text-text font-mono text-xs">KCAL</Text>
+            <Text style={{ fontFamily: FONTS.mono, fontSize: 12, color: COLORS.text }}>KCAL</Text>
           </View>
         </View>
 
-        <View className="flex-row gap-4 mt-2">
-          <Text className="text-blue font-mono text-xs">
+        <View style={{ flexDirection: 'row', gap: 16, marginTop: 8 }}>
+          <Text style={{ fontFamily: FONTS.mono, fontSize: 12, color: '#2a7a9a' }}>
             P: {Math.round(comida.proteina_total)}g
           </Text>
-          <Text className="text-accent font-mono text-xs">
+          <Text style={{ fontFamily: FONTS.mono, fontSize: 12, color: COLORS.accent }}>
             C: {Math.round(comida.carbos_total)}g
           </Text>
-          <Text className="text-olive-l font-mono text-xs">
+          <Text style={{ fontFamily: FONTS.mono, fontSize: 12, color: '#587050' }}>
             G: {Math.round(comida.grasas_total)}g
           </Text>
         </View>
@@ -56,10 +57,10 @@ export function ComidaCard({ comida, onPress, onDelete }: ComidaCardProps) {
         {onDelete && (
           <TouchableOpacity
             onPress={onDelete}
-            className="absolute top-3 right-3"
+            style={{ position: 'absolute', top: 12, right: 12 }}
             accessibilityLabel="Eliminar comida"
           >
-            <Text className="text-danger text-sm">✕</Text>
+            <Text style={{ color: '#ef4444', fontSize: 14 }}>✕</Text>
           </TouchableOpacity>
         )}
       </Card>

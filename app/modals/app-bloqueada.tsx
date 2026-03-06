@@ -29,7 +29,7 @@ export default function AppBloqueadaModal() {
   }, [app]);
 
   return (
-    <View className="flex-1 bg-bg items-center justify-center p-8">
+    <View style={{ flex: 1, backgroundColor: COLORS.bg, alignItems: 'center', justifyContent: 'center', padding: 32 }}>
       <Text style={{ fontSize: 72 }}>🚫</Text>
 
       <Text
@@ -56,7 +56,7 @@ export default function AppBloqueadaModal() {
         {app ? decodeURIComponent(app) : 'Esta aplicación'} está bloqueada
       </Text>
 
-      <View className="mt-8 p-6 rounded-xl border border-border bg-bg2 items-center">
+      <View style={{ marginTop: 32, padding: 24, borderRadius: 14, borderWidth: 1, borderColor: COLORS.border, backgroundColor: '#0c0e12', alignItems: 'center' }}>
         <Text style={{ fontFamily: FONTS.mono, fontSize: 10, color: COLORS.accent }}>
           SE DESBLOQUEA EN
         </Text>
@@ -86,12 +86,13 @@ export default function AppBloqueadaModal() {
         Volvé a entrenar, leer, o hacer algo productivo.
       </Text>
 
-      <Button
-        title="VOLVER A FORGE"
-        variant="primary"
-        onPress={() => router.replace('/(tabs)')}
-        className="mt-8"
-      />
+      <View style={{ marginTop: 32, width: '100%' }}>
+        <Button
+          title="VOLVER A FORGE"
+          variant="primary"
+          onPress={() => router.replace('/(tabs)')}
+        />
+      </View>
     </View>
   );
 }

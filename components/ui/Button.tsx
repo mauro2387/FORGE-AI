@@ -1,11 +1,12 @@
 /**
  * Button.tsx — Botón principal de FORGE
  * Soporte: filled, outline, ghost, danger
- * Dependencias: NativeWind, theme
+ * Dependencias: theme
  */
 
 import React from 'react';
-import { TouchableOpacity, Text, ActivityIndicator, View } from 'react-native';
+import { TouchableOpacity, Text, ActivityIndicator, View, StyleSheet } from 'react-native';
+import { COLORS, FONTS } from '@/constants/theme';
 
 export interface ButtonProps {
   title: string;
@@ -17,34 +18,32 @@ export interface ButtonProps {
   icon?: React.ReactNode;
   fullWidth?: boolean;
   accessibilityLabel?: string;
-  className?: string;
 }
 
-const VARIANT_STYLES = {
-  filled: 'bg-accent',
-  outline: 'border border-accent bg-transparent',
-  ghost: 'bg-transparent',
-  danger: 'bg-danger',
-} as const;
+const VARIANT_BG: Record<string, string> = {
+  filled: COLORS.accent,
+  outline: 'transparent',
+  ghost: 'transparent',
+  danger: COLORS.danger,
+};
 
-const VARIANT_TEXT = {
-  filled: 'text-bg font-barlow-bold',
-  outline: 'text-accent font-barlow-bold',
-  ghost: 'text-text-b font-barlow-medium',
-  danger: 'text-white font-barlow-bold',
-} as const;
+const VARIANT_TEXT_COLOR: Record<string, string> = {
+  filled: COLORS.bg,
+  outline: COLORS.accent,
+  ghost: COLORS.textB,
+  danger: COLORS.white,
+};
 
-const SIZE_STYLES = {
-  sm: 'py-2 px-4',
-  md: 'py-3 px-6',
-  lg: 'py-4 px-8',
-} as const;
+const VARIANT_BORDER: Record<string, string> = {
+  filled: COLORS.accent,
+  outline: COLORS.accent,
+  ghost: 'transparent',
+  danger: COLORS.danger,
+};
 
-const SIZE_TEXT = {
-  sm: 'text-sm',
-  md: 'text-base',
-  lg: 'text-lg',
-} as const;
+const SIZE_PY: Record<string, number> = { sm: 10, md: 14, lg: 18 };
+const SIZE_PX: Record<string, number> = { sm: 16, md: 24, lg: 32 };
+const SIZE_FONT: Record<string, number> = { sm: 13, md: 15, lg: 17 };
 
 export function Button({
   title,
@@ -56,7 +55,6 @@ export function Button({
   icon,
   fullWidth = false,
   accessibilityLabel,
-  className,
 }: ButtonProps) {
   const resolvedVariant = variant === 'primary' ? 'filled' : variant;
   const isDisabled = disabled || loading;
@@ -68,29 +66,36 @@ export function Button({
       activeOpacity={0.7}
       accessibilityLabel={accessibilityLabel ?? title}
       accessibilityRole="button"
-      className={`
-        flex-row items-center justify-center rounded-lg
-        ${VARIANT_STYLES[resolvedVariant]}
-        ${SIZE_STYLES[size]}
-        ${fullWidth ? 'w-full' : ''}
-        ${isDisabled ? 'opacity-50' : ''}
-        ${className ?? ''}
-      `}
+      style={[
+        styles.base,
+        {
+          backgroundColor: VARIANT_BG[resolvedVariant],
+          borderColor: VARIANT_BORDER[resolvedVariant],
+          borderWidth: resolvedVariant === 'outline' ? 1.5 : 0,
+          paddingVertical: SIZE_PY[size],
+          paddingHorizontal: SIZE_PX[size],
+          opacity: isDisabled ? 0.5 : 1,
+          width: fullWidth ? '100%' : undefined,
+        },
+      ]}
     >
       {loading ? (
         <ActivityIndicator
           size="small"
-          color={resolvedVariant === 'filled' ? '#060708' : '#c4a040'}
+          color={resolvedVariant === 'filled' ? COLORS.bg : COLORS.accent}
         />
       ) : (
-        <View className="flex-row items-center gap-2">
+        <View style={styles.content}>
           {icon}
           <Text
-            className={`
-              ${VARIANT_TEXT[resolvedVariant]}
-              ${SIZE_TEXT[size]}
-              tracking-wider uppercase
-            `}
+            style={[
+              styles.text,
+              {
+                color: VARIANT_TEXT_COLOR[resolvedVariant],
+                fontSize: SIZE_FONT[size],
+                fontFamily: FONTS.barlowBold,
+              },
+            ]}
           >
             {title}
           </Text>
@@ -99,3 +104,22 @@ export function Button({
     </TouchableOpacity>
   );
 }
+
+const styles = StyleSheet.create({
+  base: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderRadius: 10,
+  },
+  content: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 8,
+  },
+  text: {
+    letterSpacing: 1.5,
+    textTransform: 'uppercase',
+    fontWeight: '700',
+  },
+});

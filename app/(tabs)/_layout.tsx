@@ -10,7 +10,7 @@ type TabIconProps = {
 
 function TabIcon({ label, emoji, focused }: TabIconProps) {
   return (
-    <View className="items-center justify-center pt-2">
+    <View style={{ alignItems: 'center', justifyContent: 'center', paddingTop: 8 }}>
       <Text style={{ fontSize: 22 }}>{emoji}</Text>
       <Text
         style={{

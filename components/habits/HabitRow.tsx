@@ -5,6 +5,7 @@
 
 import React from 'react';
 import { View, Text, TouchableOpacity } from 'react-native';
+import { COLORS, FONTS } from '@/constants/theme';
 
 interface HabitRowProps {
   nombre: string;
@@ -17,27 +18,42 @@ export function HabitRow({ nombre, completado, onToggle }: HabitRowProps) {
     <TouchableOpacity
       onPress={onToggle}
       activeOpacity={0.7}
-      className={`
-        flex-row items-center py-3 px-4 rounded-lg gap-3
-        ${completado ? 'bg-olive/10' : 'bg-bg2'}
-        border border-border
-      `}
+      style={{
+        flexDirection: 'row',
+        alignItems: 'center',
+        paddingVertical: 12,
+        paddingHorizontal: 16,
+        borderRadius: 10,
+        gap: 12,
+        backgroundColor: completado ? 'rgba(61, 79, 58, 0.1)' : '#0c0e12',
+        borderWidth: 1,
+        borderColor: COLORS.border,
+      }}
       accessibilityLabel={`${nombre}: ${completado ? 'completado' : 'pendiente'}`}
     >
       <View
-        className={`
-          w-6 h-6 rounded-md border-2 items-center justify-center
-          ${completado ? 'bg-olive-l border-olive-l' : 'border-border'}
-        `}
+        style={{
+          width: 24,
+          height: 24,
+          borderRadius: 6,
+          borderWidth: 2,
+          alignItems: 'center',
+          justifyContent: 'center',
+          backgroundColor: completado ? '#587050' : 'transparent',
+          borderColor: completado ? '#587050' : COLORS.border,
+        }}
       >
-        {completado && <Text className="text-white text-xs">✓</Text>}
+        {completado && <Text style={{ color: COLORS.white, fontSize: 12 }}>✓</Text>}
       </View>
 
       <Text
-        className={`
-          flex-1 font-barlow text-base
-          ${completado ? 'text-text line-through' : 'text-white'}
-        `}
+        style={{
+          flex: 1,
+          fontFamily: FONTS.body,
+          fontSize: 16,
+          color: completado ? COLORS.text : COLORS.white,
+          textDecorationLine: completado ? 'line-through' : 'none',
+        }}
       >
         {nombre}
       </Text>

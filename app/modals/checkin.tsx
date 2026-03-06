@@ -46,62 +46,69 @@ export default function CheckinModal() {
   if (respuestaIA) {
     return (
       <ScrollView
-        className="flex-1 bg-bg"
+        style={{ flex: 1, backgroundColor: COLORS.bg }}
         contentContainerStyle={{ padding: 24, paddingTop: 60 }}
       >
         <Text style={{ fontFamily: FONTS.title, fontSize: 32, color: COLORS.accent }}>
           REPORTE NOCTURNO
         </Text>
 
-        <Card className="mt-6">
-          <Text style={{ fontFamily: FONTS.body, fontSize: 15, color: COLORS.text, lineHeight: 22 }}>
-            {String(respuestaIA.mensaje ?? 'Check-in procesado.')}
-          </Text>
-        </Card>
-
-        {respuestaIA.evaluacion_dia ? (
-          <Card className="mt-4">
-            <Text style={{ fontFamily: FONTS.mono, fontSize: 10, color: COLORS.accent }}>
-              EVALUACIÓN
-            </Text>
-            <Text
-              style={{
-                fontFamily: FONTS.title,
-                fontSize: 48,
-                color: COLORS.accent,
-                textAlign: 'center',
-                marginTop: 8,
-              }}
-            >
-              {String((respuestaIA.evaluacion_dia as Record<string, unknown>)?.nota ?? '')}/10
+        <View style={{ marginTop: 24 }}>
+          <Card>
+            <Text style={{ fontFamily: FONTS.body, fontSize: 15, color: COLORS.text, lineHeight: 22 }}>
+              {String(respuestaIA.mensaje ?? 'Check-in procesado.')}
             </Text>
           </Card>
+        </View>
+
+        {respuestaIA.evaluacion_dia ? (
+          <View style={{ marginTop: 16 }}>
+            <Card>
+              <Text style={{ fontFamily: FONTS.mono, fontSize: 10, color: COLORS.accent }}>
+                EVALUACIÓN
+              </Text>
+              <Text
+                style={{
+                  fontFamily: FONTS.title,
+                  fontSize: 48,
+                  color: COLORS.accent,
+                  textAlign: 'center',
+                  marginTop: 8,
+                }}
+              >
+                {String((respuestaIA.evaluacion_dia as Record<string, unknown>)?.nota ?? '')}/10
+              </Text>
+            </Card>
+          </View>
         ) : null}
 
         {respuestaIA.consejo_manana ? (
-          <Card className="mt-4">
-            <Text style={{ fontFamily: FONTS.mono, fontSize: 10, color: COLORS.accent }}>
-              PARA MAÑANA
-            </Text>
-            <Text style={{ fontFamily: FONTS.body, fontSize: 13, color: COLORS.text, marginTop: 4 }}>
-              {String(respuestaIA.consejo_manana ?? '')}
-            </Text>
-          </Card>
+          <View style={{ marginTop: 16 }}>
+            <Card>
+              <Text style={{ fontFamily: FONTS.mono, fontSize: 10, color: COLORS.accent }}>
+                PARA MAÑANA
+              </Text>
+              <Text style={{ fontFamily: FONTS.body, fontSize: 13, color: COLORS.text, marginTop: 4 }}>
+                {String(respuestaIA.consejo_manana ?? '')}
+              </Text>
+            </Card>
+          </View>
         ) : null}
 
-        <Button
-          title="ENTENDIDO"
-          variant="primary"
-          onPress={() => router.back()}
-          className="mt-8"
-        />
+        <View style={{ marginTop: 32 }}>
+          <Button
+            title="ENTENDIDO"
+            variant="primary"
+            onPress={() => router.back()}
+          />
+        </View>
       </ScrollView>
     );
   }
 
   return (
     <ScrollView
-      className="flex-1 bg-bg"
+      style={{ flex: 1, backgroundColor: COLORS.bg }}
       contentContainerStyle={{ padding: 24, paddingTop: 60 }}
     >
       <Pressable onPress={() => router.back()}>
@@ -125,18 +132,23 @@ export default function CheckinModal() {
       </Text>
 
       {/* Estado de ánimo */}
-      <View className="mt-8">
+      <View style={{ marginTop: 32 }}>
         <Text style={{ fontFamily: FONTS.mono, fontSize: 10, color: COLORS.accent }}>
           ESTADO DE ÁNIMO
         </Text>
-        <View className="flex-row justify-between mt-3">
+        <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginTop: 12 }}>
           {ANIMO_OPTIONS.map((op) => (
             <Pressable
               key={op.value}
               onPress={() => setEstadoAnimo(op.value)}
-              className={`items-center p-2 rounded-lg ${
-                estadoAnimo === op.value ? 'bg-bg2 border border-accent' : ''
-              }`}
+              style={{
+                alignItems: 'center',
+                padding: 8,
+                borderRadius: 10,
+                backgroundColor: estadoAnimo === op.value ? '#0c0e12' : 'transparent',
+                borderWidth: estadoAnimo === op.value ? 1 : 0,
+                borderColor: COLORS.accent,
+              }}
             >
               <Text style={{ fontSize: 24 }}>{op.emoji}</Text>
               <Text
@@ -155,18 +167,25 @@ export default function CheckinModal() {
       </View>
 
       {/* Energía */}
-      <View className="mt-6">
+      <View style={{ marginTop: 24 }}>
         <Text style={{ fontFamily: FONTS.mono, fontSize: 10, color: COLORS.accent }}>
           NIVEL DE ENERGÍA: {energia}/10
         </Text>
-        <View className="flex-row justify-between mt-3">
+        <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginTop: 12 }}>
           {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((n) => (
             <Pressable
               key={n}
               onPress={() => setEnergia(n)}
-              className={`w-8 h-8 rounded items-center justify-center ${
-                n <= energia ? 'bg-accent' : 'bg-bg2 border border-border'
-              }`}
+              style={{
+                width: 32,
+                height: 32,
+                borderRadius: 6,
+                alignItems: 'center',
+                justifyContent: 'center',
+                backgroundColor: n <= energia ? COLORS.accent : '#0c0e12',
+                borderWidth: n <= energia ? 0 : 1,
+                borderColor: COLORS.border,
+              }}
             >
               <Text
                 style={{
@@ -183,8 +202,8 @@ export default function CheckinModal() {
       </View>
 
       {/* Sueño */}
-      <View className="mt-6 flex-row gap-3">
-        <View className="flex-1">
+      <View style={{ marginTop: 24, flexDirection: 'row', gap: 12 }}>
+        <View style={{ flex: 1 }}>
           <Input
             label="HORAS DE SUEÑO"
             value={horasSueno}
@@ -193,18 +212,23 @@ export default function CheckinModal() {
             keyboardType="decimal-pad"
           />
         </View>
-        <View className="flex-1">
+        <View style={{ flex: 1 }}>
           <Text style={{ fontFamily: FONTS.mono, fontSize: 10, color: COLORS.accent, marginBottom: 6 }}>
             CALIDAD: {calidadSueno}/10
           </Text>
-          <View className="flex-row flex-wrap gap-1">
+          <View style={{ flexDirection: 'row', flexWrap: 'wrap', gap: 4 }}>
             {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((n) => (
               <Pressable
                 key={n}
                 onPress={() => setCalidadSueno(n)}
-                className={`w-6 h-6 rounded items-center justify-center ${
-                  n <= calidadSueno ? 'bg-olive' : 'bg-bg2'
-                }`}
+                style={{
+                  width: 24,
+                  height: 24,
+                  borderRadius: 4,
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  backgroundColor: n <= calidadSueno ? COLORS.olive : '#0c0e12',
+                }}
               >
                 <Text style={{ fontFamily: FONTS.mono, fontSize: 8, color: COLORS.text }}>
                   {n}
@@ -216,27 +240,29 @@ export default function CheckinModal() {
       </View>
 
       {/* Dolor/lesión */}
-      <Input
-        label="DOLOR O LESIÓN (opcional)"
-        value={dolorLesion}
-        onChangeText={setDolorLesion}
-        placeholder="Describe si tenés algún dolor o molestia"
-        multiline
-        className="mt-6"
-      />
+      <View style={{ marginTop: 24 }}>
+        <Input
+          label="DOLOR O LESIÓN (opcional)"
+          value={dolorLesion}
+          onChangeText={setDolorLesion}
+          placeholder="Describe si tenés algún dolor o molestia"
+          multiline
+        />
+      </View>
 
       {/* Notas */}
-      <Input
-        label="NOTAS (opcional)"
-        value={notas}
-        onChangeText={setNotas}
-        placeholder="¿Algo que quieras registrar del día?"
-        multiline
-        className="mt-4"
-      />
+      <View style={{ marginTop: 16 }}>
+        <Input
+          label="NOTAS (opcional)"
+          value={notas}
+          onChangeText={setNotas}
+          placeholder="¿Algo que quieras registrar del día?"
+          multiline
+        />
+      </View>
 
       {aiLoading && (
-        <View className="mt-6">
+        <View style={{ marginTop: 24 }}>
           <ProgressBar progress={aiProgress} />
           <Text
             style={{
@@ -252,13 +278,14 @@ export default function CheckinModal() {
         </View>
       )}
 
-      <Button
-        title="ENVIAR REPORTE"
-        variant="primary"
-        loading={aiLoading}
-        onPress={handleSubmit}
-        className="mt-8 mb-8"
-      />
+      <View style={{ marginTop: 32, marginBottom: 32 }}>
+        <Button
+          title="ENVIAR REPORTE"
+          variant="primary"
+          loading={aiLoading}
+          onPress={handleSubmit}
+        />
+      </View>
     </ScrollView>
   );
 }

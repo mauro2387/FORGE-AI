@@ -11,7 +11,7 @@ export default function StepAdicciones() {
 
   return (
     <ScrollView
-      className="flex-1 bg-bg"
+      style={{ flex: 1, backgroundColor: COLORS.bg }}
       contentContainerStyle={{ padding: 24, paddingTop: 60 }}
     >
       <ProgressBar progress={4 / 7} />
@@ -19,7 +19,7 @@ export default function StepAdicciones() {
       <Text style={{ fontFamily: FONTS.title, fontSize: 32, color: COLORS.accent, marginTop: 24 }}>
         ADICCIONES
       </Text>
-      <Text style={{ fontFamily: FONTS.mono, fontSize: 11, color: COLORS.textB, marginTop: 4 }}>
+      <Text style={{ fontFamily: FONTS.mono, fontSize: 11, color: COLORS.text, marginTop: 4, letterSpacing: 1 }}>
         PASO 4/7 — ENEMIGOS A ELIMINAR
       </Text>
       <Text style={{ fontFamily: FONTS.body, fontSize: 13, color: COLORS.textB, marginTop: 8 }}>
@@ -27,19 +27,25 @@ export default function StepAdicciones() {
         Es opcional — si no tenés ninguno, avanzá.
       </Text>
 
-      <View className="gap-3 mt-8">
+      <View style={{ gap: 12, marginTop: 32 }}>
         {ADICCIONES_DISPONIBLES.map((adiccion) => {
           const selected = data.adicciones.includes(adiccion.id);
           return (
             <Pressable
               key={adiccion.id}
               onPress={() => toggleAdiccion(adiccion.id)}
-              className={`flex-row items-center p-4 rounded-lg border ${
-                selected ? 'border-danger bg-bg2' : 'border-border bg-bg'
-              }`}
+              style={{
+                flexDirection: 'row',
+                alignItems: 'center',
+                padding: 16,
+                borderRadius: 10,
+                borderWidth: 1,
+                borderColor: selected ? '#ef4444' : COLORS.border,
+                backgroundColor: selected ? '#0c0e12' : COLORS.bg,
+              }}
             >
               <Text style={{ fontSize: 24, marginRight: 12 }}>{adiccion.icono}</Text>
-              <View className="flex-1">
+              <View style={{ flex: 1 }}>
                 <Text
                   style={{
                     fontFamily: FONTS.bodyBold,
@@ -51,9 +57,16 @@ export default function StepAdicciones() {
                 </Text>
               </View>
               <View
-                className={`w-6 h-6 rounded border-2 items-center justify-center ${
-                  selected ? 'border-danger bg-danger' : 'border-border'
-                }`}
+                style={{
+                  width: 24,
+                  height: 24,
+                  borderRadius: 6,
+                  borderWidth: 2,
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  borderColor: selected ? '#ef4444' : COLORS.border,
+                  backgroundColor: selected ? '#ef4444' : 'transparent',
+                }}
               >
                 {selected && (
                   <Text style={{ color: '#fff', fontSize: 14, fontWeight: 'bold' }}>✓</Text>
@@ -64,19 +77,21 @@ export default function StepAdicciones() {
         })}
       </View>
 
-      <View className="flex-row gap-3 mt-8">
-        <Button
-          title="← ATRÁS"
-          onPress={() => router.back()}
-          variant="outline"
-          className="flex-1"
-        />
-        <Button
-          title="SIGUIENTE →"
-          onPress={() => router.push('/(onboarding)/step-bloqueos')}
-          variant="primary"
-          className="flex-1"
-        />
+      <View style={{ flexDirection: 'row', gap: 12, marginTop: 32 }}>
+        <View style={{ flex: 1 }}>
+          <Button
+            title="← ATRÁS"
+            onPress={() => router.back()}
+            variant="outline"
+          />
+        </View>
+        <View style={{ flex: 1 }}>
+          <Button
+            title="SIGUIENTE →"
+            onPress={() => router.push('/(onboarding)/step-bloqueos')}
+            variant="primary"
+          />
+        </View>
       </View>
     </ScrollView>
   );

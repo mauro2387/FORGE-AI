@@ -1,10 +1,11 @@
 /**
  * Avatar.tsx — Avatar de usuario con fallback de iniciales
- * Dependencias: NativeWind
+ * Dependencias: theme
  */
 
 import React from 'react';
 import { View, Text, Image } from 'react-native';
+import { COLORS, FONTS } from '@/constants/theme';
 
 export interface AvatarProps {
   uri?: string | null;
@@ -28,18 +29,31 @@ export function Avatar({ uri, nombre, name, size = 48 }: AvatarProps) {
     return (
       <Image
         source={{ uri }}
-        style={{ width: size, height: size, borderRadius: size / 2 }}
-        className="border-2 border-accent"
+        style={{
+          width: size,
+          height: size,
+          borderRadius: size / 2,
+          borderWidth: 2,
+          borderColor: COLORS.accent,
+        }}
       />
     );
   }
 
   return (
     <View
-      style={{ width: size, height: size, borderRadius: size / 2 }}
-      className="bg-olive border-2 border-accent items-center justify-center"
+      style={{
+        width: size,
+        height: size,
+        borderRadius: size / 2,
+        backgroundColor: COLORS.olive,
+        borderWidth: 2,
+        borderColor: COLORS.accent,
+        alignItems: 'center',
+        justifyContent: 'center',
+      }}
     >
-      <Text className="text-white font-bebas" style={{ fontSize: size * 0.4 }}>
+      <Text style={{ color: COLORS.white, fontFamily: FONTS.bebas, fontSize: size * 0.4 }}>
         {initials}
       </Text>
     </View>
