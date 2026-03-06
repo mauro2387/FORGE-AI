@@ -15,9 +15,9 @@ interface UserState {
   error: string | null;
   isOnboarded: boolean;
 
-  fetchProfile: () => Promise<void>;
+  fetchProfile: (userId?: string) => Promise<void>;
   updateProfile: (updates: Partial<UserProfile>) => Promise<void>;
-  setProfile: (profile: UserProfile) => void;
+  setProfile: (profile: UserProfile | null) => void;
   clearProfile: () => void;
   signOut: () => Promise<void>;
 }
@@ -28,33 +28,26 @@ export const useUserStore = create<UserState>((set, get) => ({
   error: null,
   isOnboarded: false,
 
-  fetchProfile: async () => {
+  fetchProfile: async (userId?: string) => {
     set({ loading: true, error: null });
     try {
-      const { data: sessionData } = await supabase.auth.getSession();
-      const userId = sessionData.session?.user?.id;
-
-      if (!userId) {
+      let uid = userId;
+      if (!uid) {
+        const { data: sessionData } = await supabase.auth.getSession();
+        uid = sessionData.session?.user?.id;
+      }
+      if (!uid) {
         set({ loading: false, profile: null, isOnboarded: false });
         return;
       }
-
       const { data, error } = await supabase
         .from('user_profiles')
         .select('*')
-        .eq('id', userId)
+        .eq('id', uid)
         .single();
-
-      if (error && error.code !== 'PGRST116') {
-        throw error;
-      }
-
+      if (error && error.code !== 'PGRST116') throw error;
       if (data) {
-        set({
-          profile: data as UserProfile,
-          isOnboarded: true,
-          loading: false,
-        });
+        set({ profile: data as UserProfile, isOnboarded: data.onboarding_completo, loading: false });
       } else {
         set({ profile: null, isOnboarded: false, loading: false });
       }

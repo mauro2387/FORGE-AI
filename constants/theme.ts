@@ -10,9 +10,9 @@ export const COLORS = {
   border: '#1c2030',
   accent: '#c4a040',
   olive: '#3d4f3a',
-  'olive-l': '#587050',
+  oliveL: '#587050',
   text: '#849098',
-  'text-b': '#c0ccd4',
+  textB: '#c0ccd4',
   white: '#e4eaf0',
   danger: '#922020',
   blue: '#2a7a9a',
@@ -25,7 +25,11 @@ export const FONTS = {
   mono: 'ShareTechMono',
   barlow: 'BarlowCondensed-Regular',
   barlowMedium: 'BarlowCondensed-Medium',
+  barlowSemiBold: 'BarlowCondensed-SemiBold',
   barlowBold: 'BarlowCondensed-Bold',
+  title: 'BebasNeue',
+  body: 'BarlowCondensed-Regular',
+  bodyBold: 'BarlowCondensed-Bold',
 } as const;
 
 export const SPACING = {
